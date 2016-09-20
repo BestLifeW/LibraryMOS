@@ -1,14 +1,15 @@
-package com.rjxy.librarymos;
+package com.rjxy.librarymos.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.rjxy.librarymos.R;
+
+public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        //zw
+        setContentView(R.layout.activity_home);
     }
 }
