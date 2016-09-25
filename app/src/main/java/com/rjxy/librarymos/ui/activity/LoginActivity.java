@@ -87,7 +87,9 @@ public class LoginActivity extends AppCompatActivity {
                         if (isHave) {
                             //Snackbar.make(getCurrentFocus(), "登录成功", Snackbar.LENGTH_LONG).show();
                             enterHome();
-                            PrefUtils.setBoolen(getApplicationContext(),"isLogin",true);
+                            PrefUtils.setBoolen(getApplicationContext(), "isLogin", true);
+                            PrefUtils.setString(getApplicationContext(),"number",usernumber);
+
                         } else {
                             Snackbar.make(getCurrentFocus(), "登录失败，请检查输入", Snackbar.LENGTH_LONG).show();
                         }
@@ -109,6 +111,7 @@ public class LoginActivity extends AppCompatActivity {
         finish();
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
+
 
     //进入注册页面
     private void enterRegister() {
