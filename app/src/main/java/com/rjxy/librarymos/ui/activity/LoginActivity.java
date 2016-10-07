@@ -1,12 +1,10 @@
 package com.rjxy.librarymos.ui.activity;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,9 +14,6 @@ import android.widget.Toast;
 import com.rjxy.librarymos.R;
 import com.rjxy.librarymos.database.DatabaseDao;
 import com.rjxy.librarymos.utils.PrefUtils;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -53,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         tv_taste.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                PrefUtils.setString(getApplicationContext(),PrefUtils.NUMBER,"");
                 enterHome();
             }
         });
@@ -85,10 +81,9 @@ public class LoginActivity extends AppCompatActivity {
                     if (!usernumber.equals("") || !password.equals("")) {
                         boolean isHave = DatabaseDao.checkLogin(usernumber, password, getApplicationContext());
                         if (isHave) {
-                            //Snackbar.make(getCurrentFocus(), "登录成功", Snackbar.LENGTH_LONG).show();
                             enterHome();
                             PrefUtils.setBoolen(getApplicationContext(), "isLogin", true);
-                            PrefUtils.setString(getApplicationContext(),"number",usernumber);
+                            PrefUtils.setString(getApplicationContext(),PrefUtils.NUMBER,usernumber);
 
                         } else {
                             Snackbar.make(getCurrentFocus(), "登录失败，请检查输入", Snackbar.LENGTH_LONG).show();
@@ -114,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     //进入注册页面
-    private void enterRegister() {
+    public void enterRegister() {
         Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

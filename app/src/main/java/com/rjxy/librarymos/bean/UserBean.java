@@ -18,7 +18,7 @@ public class UserBean {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
-                ", number='" + number + '\'' +
+                ", NUMBER='" + number + '\'' +
                 '}';
     }
 }

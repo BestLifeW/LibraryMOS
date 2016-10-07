@@ -20,7 +20,7 @@ public class DatabaseDao {
     public static boolean isUserExists(String user, Context context) {
         databaseHelper = new DatabaseHelper(context, null);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
-        String sql = "select * from " + DatabaseHelper.TABLE_NAME + " where number=?";
+        String sql = "select * from " + DatabaseHelper.USERINFO + " where NUMBER=?";
         Cursor cursor = db.rawQuery(sql, new String[]{user});
         if (cursor.getCount() > 0) {
             cursor.close();
@@ -35,7 +35,7 @@ public class DatabaseDao {
     public static boolean checkLogin(String number, String password, Context context) {
         databaseHelper = new DatabaseHelper(context, null);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
-        String sql = "select * from " + DatabaseHelper.TABLE_NAME + " where number =? and password=?";
+        String sql = "select * from " + DatabaseHelper.USERINFO + " where NUMBER =? and password=?";
         Cursor cursor = db.rawQuery(sql, new String[]{number, password});
         if (cursor.getCount() > 0) {
             cursor.close();
@@ -49,7 +49,7 @@ public class DatabaseDao {
     public static boolean register(String number, String password, String name, Context context) {
         databaseHelper = new DatabaseHelper(context, null);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
-        db.execSQL("insert into " + DatabaseHelper.TABLE_NAME + "(_id,number, password,name) values(?,?,?,?)", new String[]{null, number, password, name});
+        db.execSQL("insert into " + DatabaseHelper.USERINFO + "(_id,NUMBER, password,name) values(?,?,?,?)", new String[]{null, number, password, name});
         return true;
     }
 
@@ -59,7 +59,7 @@ public class DatabaseDao {
         ArrayList<UserBean> list = new ArrayList<>();
         databaseHelper = new DatabaseHelper(context, null);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
-        String sql = "select * from " + DatabaseHelper.TABLE_NAME + " where number = ?";
+        String sql = "select * from " + DatabaseHelper.USERINFO + " where NUMBER = ?";
 
         Cursor cursor = db.rawQuery(sql, new String[]{number});
         //因为一个用户对应一个数据，所以我直接写，不用while循环了
