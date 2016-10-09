@@ -19,7 +19,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        isLogin = PrefUtils.getBoolen(getApplicationContext(), "isLogin", false);
+        isLogin = PrefUtils.getBoolen(getApplicationContext(), PrefUtils.ISLOGIN, false);
         setContentView(R.layout.activity_splash);
         enterOtherActivity();
     }

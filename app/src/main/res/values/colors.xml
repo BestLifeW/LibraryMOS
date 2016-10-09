@@ -6,4 +6,6 @@
 
     <color name="titleColor">#757575</color>
     <color name="titleColorSelected">#F54D33</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="background_gray">#eee</color>
 </resources>

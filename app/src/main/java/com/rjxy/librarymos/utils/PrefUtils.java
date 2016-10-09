@@ -7,7 +7,10 @@ import android.content.SharedPreferences;
  * Created by lovec on 2016/9/19.
  */
 public class PrefUtils {
-
+    
+    public static final String NUMBER = "number";
+    public  static  final  String ISLOGIN = "isLogin";
+    
     public static boolean getBoolen(Context context, String key, boolean defValue) {
         SharedPreferences sp = context.getSharedPreferences("config", Context.MODE_PRIVATE);
         return sp.getBoolean(key, defValue);
