@@ -6,8 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.rjxy.librarymos.bean.UserBean;
 
-import java.util.ArrayList;
-
 /**
  * Created by lovec on 2016/9/22.
  */
@@ -54,9 +52,9 @@ public class DatabaseDao {
     }
 
     //根据用户名查询用户信息
-    public static ArrayList<UserBean> getUserInfo(String number, Context context) {
+    public static UserBean getUserInfo(String number, Context context) {
 
-        ArrayList<UserBean> list = new ArrayList<>();
+        UserBean userBean = new UserBean();
         databaseHelper = new DatabaseHelper(context, null);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
         String sql = "select * from " + DatabaseHelper.USERINFO + " where NUMBER = ?";
@@ -64,15 +62,35 @@ public class DatabaseDao {
         Cursor cursor = db.rawQuery(sql, new String[]{number});
         //因为一个用户对应一个数据，所以我直接写，不用while循环了
         if (cursor.moveToFirst()) {
-            UserBean userBean = new UserBean();
-            String name = cursor.getString(3);
-            String password = cursor.getString(1);
+            String Number = cursor.getString(1);  //获取账户
+            String name = cursor.getString(3);  //获取名字
+            String password = cursor.getString(2);//获取密码
             userBean.name = name;
             userBean.password = password;
-            list.add(userBean);
-        }
+            userBean.number = Number;
 
-        return list;
+        }
+        return userBean;
     }
+    public static boolean alertUserInfo(String password,String name,String number,Context context){
+
+        databaseHelper = new DatabaseHelper(context, null);
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        if (name.equals("")){
+            //姓名为空 那么 只改密码
+            db.execSQL("update " + DatabaseHelper.USERINFO + " set password = "+ password + " where NUMBER='"+number+"'");
+        }else {
+            //姓名不为空 一起改
+            db.execSQL("update " + DatabaseHelper.USERINFO + " set password = '"+ password+"'" + ",name = '"+ name +"'" + " where NUMBER='"+number+"'");
+        }
+        return true;
+
+    }
+
+    /*
+        String sql = "update stu_table set snumber = 654321 where id = 1";
+    *
+    * */
+
 
 }
