@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rjxy.librarymos.R;
@@ -25,6 +26,8 @@ public class AccountManager extends AppCompatActivity implements View.OnClickLis
     private EditText et_oldPassword;
     private EditText et_newPassword;
     private EditText et_newName;
+    private RelativeLayout rl_about;
+    private TextView tv_loginout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +49,11 @@ public class AccountManager extends AppCompatActivity implements View.OnClickLis
     private void initView() {
         //密码姓名设置
         rl_inforevise = (RelativeLayout) findViewById(R.id.rl_inforevise);
+        rl_about = (RelativeLayout) findViewById(R.id.rl_about);
+        tv_loginout = (TextView) findViewById(R.id.tv_loginout);
         rl_inforevise.setOnClickListener(this);
-
+        rl_about.setOnClickListener(this);
+        tv_loginout.setOnClickListener(this);
 
     }
 
@@ -61,10 +67,32 @@ public class AccountManager extends AppCompatActivity implements View.OnClickLis
             case R.id.rl_inforevise:
                 ShowDialog();
                 break;
+            case R.id.rl_about:
+                enterAbout();
+
+            case R.id.tv_loginout:
+                loginOut();
             default:
                 break;
         }
     }
+    /*
+    * 退出登录
+    * */
+    private void loginOut() {
+        PrefUtils.setString(getApplicationContext(),PrefUtils.NUMBER,"");
+        PrefUtils.setBoolen(getApplicationContext(),PrefUtils.ISLOGIN,false);
+        enterLogin();
+        finish();
+    }
+    /*
+    * 进入关于界面
+    * */
+    private void enterAbout() {
+        Intent intent  = new Intent(getApplicationContext(),AboutActivity.class);
+        startActivity(intent);
+    }
+
     //弹出修改密码对话框
     private void ShowDialog() {
 

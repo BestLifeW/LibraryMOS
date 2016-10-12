@@ -63,17 +63,16 @@ public class DatabaseDao {
         //因为一个用户对应一个数据，所以我直接写，不用while循环了
         if (cursor.moveToFirst()) {
             String Number = cursor.getString(1);  //获取账户
-            String name = cursor.getString(3);  //获取名字
             String password = cursor.getString(2);//获取密码
+            String name = cursor.getString(3);  //获取名字
             userBean.name = name;
             userBean.password = password;
             userBean.number = Number;
-
         }
         return userBean;
     }
+    //修改密码啥的
     public static boolean alertUserInfo(String password,String name,String number,Context context){
-
         databaseHelper = new DatabaseHelper(context, null);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
         if (name.equals("")){
@@ -84,13 +83,5 @@ public class DatabaseDao {
             db.execSQL("update " + DatabaseHelper.USERINFO + " set password = '"+ password+"'" + ",name = '"+ name +"'" + " where NUMBER='"+number+"'");
         }
         return true;
-
     }
-
-    /*
-        String sql = "update stu_table set snumber = 654321 where id = 1";
-    *
-    * */
-
-
 }

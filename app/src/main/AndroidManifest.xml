@@ -22,7 +22,8 @@
             android:theme="@style/NoTitleBar" />
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.RegisterActivity" />
-        <activity android:name=".ui.activity.AccountManager"></activity>
+        <activity android:name=".ui.activity.AccountManager" />
+        <activity android:name=".ui.activity.AboutActivity"></activity>
     </application>
 
 </manifest>
