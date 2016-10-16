@@ -63,33 +63,55 @@ public class AccountManager extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.rl_inforevise:
                 ShowDialog();
                 break;
             case R.id.rl_about:
                 enterAbout();
-
+                break;
             case R.id.tv_loginout:
                 loginOut();
+                break;
             default:
                 break;
         }
     }
+
     /*
     * 退出登录
     * */
     private void loginOut() {
-        PrefUtils.setString(getApplicationContext(),PrefUtils.NUMBER,"");
-        PrefUtils.setBoolen(getApplicationContext(),PrefUtils.ISLOGIN,false);
-        enterLogin();
-        finish();
+
+        showAlertDialog();
+
     }
+
+    /*
+    * 展示是否退出确定对话框
+    * */
+    private void showAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(AccountManager.this);
+        builder.setTitle("是否退出？");
+        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                PrefUtils.setString(getApplicationContext(), PrefUtils.NUMBER, "");
+                PrefUtils.setBoolen(getApplicationContext(), PrefUtils.ISLOGIN, false);
+                enterLogin();
+                finish();
+            }
+        });
+        builder.setNegativeButton("取消", null);
+        builder.show();
+
+    }
+
     /*
     * 进入关于界面
     * */
     private void enterAbout() {
-        Intent intent  = new Intent(getApplicationContext(),AboutActivity.class);
+        Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
         startActivity(intent);
     }
 
@@ -103,35 +125,34 @@ public class AccountManager extends AppCompatActivity implements View.OnClickLis
         et_newName = (EditText) view.findViewById(R.id.et_newName);
 
 
-
         AlertDialog.Builder builder = new AlertDialog.Builder(AccountManager.this);
 
-        builder.setTitle("修改信息:"+userInfo.number);
+        builder.setTitle("修改信息:" + userInfo.number);
         builder.setView(view);
         builder.setPositiveButton("确认修改", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                 String oldPassword = et_oldPassword.getText().toString().trim();
-                 String newName = et_newName.getText().toString().trim();
-                 String newPassword = et_newPassword.getText().toString().trim();
-                if (!oldPassword.equals(userInfo.password)){
+                String oldPassword = et_oldPassword.getText().toString().trim();
+                String newName = et_newName.getText().toString().trim();
+                String newPassword = et_newPassword.getText().toString().trim();
+                if (!oldPassword.equals(userInfo.password)) {
                     Toast.makeText(AccountManager.this, "原密码不符合", Toast.LENGTH_SHORT).show();
                     return;
-                }else {
-                    DatabaseDao.alertUserInfo(newPassword,newName,number,getApplicationContext());
+                } else {
+                    DatabaseDao.alertUserInfo(newPassword, newName, number, getApplicationContext());
                     Toast.makeText(AccountManager.this, "修改成功,请重新登录", Toast.LENGTH_SHORT).show();
-                    PrefUtils.setString(getApplicationContext(),PrefUtils.NUMBER,"");//将保存的账户设置为空
+                    PrefUtils.setString(getApplicationContext(), PrefUtils.NUMBER, "");//将保存的账户设置为空
                     enterLogin();
                     AccountManager.this.finish();
                 }
             }
         });
-        builder.setNegativeButton("取消",null);
+        builder.setNegativeButton("取消", null);
         builder.show();
     }
 
-    private void enterLogin(){
-        Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+    private void enterLogin() {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
     }
 }
