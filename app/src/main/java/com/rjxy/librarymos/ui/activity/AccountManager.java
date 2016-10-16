@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.rjxy.librarymos.R;
 import com.rjxy.librarymos.bean.UserBean;
-import com.rjxy.librarymos.database.DatabaseDao;
+import com.rjxy.librarymos.database.UserDatabaseDao;
 import com.rjxy.librarymos.utils.PrefUtils;
 
 public class AccountManager extends AppCompatActivity implements View.OnClickListener {
@@ -34,16 +34,14 @@ public class AccountManager extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_manager);
         number = getIntent().getExtras().getString("number");
-        userInfo = DatabaseDao.getUserInfo(number, getApplicationContext());
+        userInfo = UserDatabaseDao.getUserInfo(number, getApplicationContext());
         //初始化
         init();
-
     }
 
     private void init() {
         initView();
         initData();
-
     }
 
     private void initView() {
@@ -82,9 +80,7 @@ public class AccountManager extends AppCompatActivity implements View.OnClickLis
     * 退出登录
     * */
     private void loginOut() {
-
         showAlertDialog();
-
     }
 
     /*
@@ -117,14 +113,11 @@ public class AccountManager extends AppCompatActivity implements View.OnClickLis
 
     //弹出修改密码对话框
     private void ShowDialog() {
-
-
+        
         view = View.inflate(getApplicationContext(), R.layout.alertdialog_info, null);
         et_oldPassword = (EditText) view.findViewById(R.id.et_oldPassword);
         et_newPassword = (EditText) view.findViewById(R.id.et_newPassword);
         et_newName = (EditText) view.findViewById(R.id.et_newName);
-
-
         AlertDialog.Builder builder = new AlertDialog.Builder(AccountManager.this);
 
         builder.setTitle("修改信息:" + userInfo.number);
@@ -139,7 +132,7 @@ public class AccountManager extends AppCompatActivity implements View.OnClickLis
                     Toast.makeText(AccountManager.this, "原密码不符合", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    DatabaseDao.alertUserInfo(newPassword, newName, number, getApplicationContext());
+                    UserDatabaseDao.alertUserInfo(newPassword, newName, number, getApplicationContext());
                     Toast.makeText(AccountManager.this, "修改成功,请重新登录", Toast.LENGTH_SHORT).show();
                     PrefUtils.setString(getApplicationContext(), PrefUtils.NUMBER, "");//将保存的账户设置为空
                     enterLogin();

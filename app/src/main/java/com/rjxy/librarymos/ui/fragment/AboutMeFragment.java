@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.rjxy.librarymos.R;
 import com.rjxy.librarymos.bean.UserBean;
-import com.rjxy.librarymos.database.DatabaseDao;
+import com.rjxy.librarymos.database.UserDatabaseDao;
 import com.rjxy.librarymos.ui.activity.AccountManager;
 import com.rjxy.librarymos.ui.activity.LoginActivity;
 import com.rjxy.librarymos.utils.PrefUtils;
@@ -76,7 +76,7 @@ public class AboutMeFragment extends Fragment implements View.OnLongClickListene
     * 初始化数据
     * */
     private void initDate() {
-        userInfo = DatabaseDao.getUserInfo(number, getActivity());
+        userInfo = UserDatabaseDao.getUserInfo(number, getActivity());
         if (number.equals("") || userInfo == null) {
             tv_username.setText("游客");
             tv_username.setOnLongClickListener(new View.OnLongClickListener() {

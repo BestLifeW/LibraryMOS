@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rjxy.librarymos.R;
-import com.rjxy.librarymos.database.DatabaseDao;
+import com.rjxy.librarymos.database.UserDatabaseDao;
 import com.rjxy.librarymos.utils.PrefUtils;
 
 public class LoginActivity extends AppCompatActivity {
@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         tv_taste.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PrefUtils.setString(getApplicationContext(),PrefUtils.NUMBER,"");
+                PrefUtils.setString(getApplicationContext(), PrefUtils.NUMBER, "");
                 enterHome();
             }
         });
@@ -78,16 +78,23 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "管理员登录啦！", Toast.LENGTH_SHORT).show();
                 } else {
                     //判断用户的用户名 密码
-                    if (!usernumber.equals("") || !password.equals("")) {
-                        boolean isHave = DatabaseDao.checkLogin(usernumber, password, getApplicationContext());
-                        if (isHave) {
-                            enterHome();
-                            PrefUtils.setBoolen(getApplicationContext(), "isLogin", true);
-                            PrefUtils.setString(getApplicationContext(),PrefUtils.NUMBER,usernumber);
+                    if (!usernumber.equals("") && !password.equals("")) {
+                        //boolean isHave = UserDatabaseDao.checkLogin(usernumber, password, getApplicationContext());
+                        boolean haveNumber = UserDatabaseDao.isHaveNumber(usernumber, getApplicationContext());
+                        if (haveNumber){
+                            String OKpassword = UserDatabaseDao.getUserPassword(usernumber, getApplicationContext());
+                            if (password.equals(OKpassword)) {
+                                enterHome();
+                                PrefUtils.setBoolen(getApplicationContext(), "isLogin", true);
+                                PrefUtils.setString(getApplicationContext(), PrefUtils.NUMBER, usernumber);
 
-                        } else {
-                            Snackbar.make(getCurrentFocus(), "登录失败，请检查输入", Snackbar.LENGTH_LONG).show();
+                            } else {
+                                Snackbar.make(getCurrentFocus(), "密码输入错误，请重新输入", Snackbar.LENGTH_LONG).show();
+                            }
+                        }else {
+                            Snackbar.make(getCurrentFocus(),"用户名不存在",Snackbar.LENGTH_LONG).show();
                         }
+
                     } else {
                         Snackbar.make(getCurrentFocus(), "请完成输入", Snackbar.LENGTH_LONG).show();
                         return;
