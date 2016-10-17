@@ -4,7 +4,7 @@ import android.app.Application;
 import android.test.ApplicationTestCase;
 import android.util.Log;
 
-import com.rjxy.librarymos.database.UserDatabaseDao;
+import com.rjxy.librarymos.dao.UserDatabaseDao;
 
 import static android.content.ContentValues.TAG;
 

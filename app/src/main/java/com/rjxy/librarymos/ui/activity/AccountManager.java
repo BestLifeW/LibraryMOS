@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.rjxy.librarymos.R;
 import com.rjxy.librarymos.bean.UserBean;
-import com.rjxy.librarymos.database.UserDatabaseDao;
+import com.rjxy.librarymos.dao.UserDatabaseDao;
 import com.rjxy.librarymos.utils.PrefUtils;
 
 public class AccountManager extends AppCompatActivity implements View.OnClickListener {
@@ -132,7 +132,7 @@ public class AccountManager extends AppCompatActivity implements View.OnClickLis
                     Toast.makeText(AccountManager.this, "原密码不符合", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    UserDatabaseDao.alertUserInfo(newPassword, newName, number, getApplicationContext());
+                    UserDatabaseDao.setUserInfo(newPassword, newName, number, getApplicationContext());
                     Toast.makeText(AccountManager.this, "修改成功,请重新登录", Toast.LENGTH_SHORT).show();
                     PrefUtils.setString(getApplicationContext(), PrefUtils.NUMBER, "");//将保存的账户设置为空
                     enterLogin();
