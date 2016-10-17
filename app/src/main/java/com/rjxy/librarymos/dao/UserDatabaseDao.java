@@ -1,11 +1,13 @@
-package com.rjxy.librarymos.database;
+package com.rjxy.librarymos.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.rjxy.librarymos.bean.UserBean;
+import com.rjxy.librarymos.database.DatabaseHelper;
 
 /**
  * Created by lovec on 2016/9/22.
@@ -92,6 +94,21 @@ public class UserDatabaseDao {
         return true;
     }
 
+    //新方法
+    public static boolean register2(String number,String password,String name,Context context){
+        databaseHelper=new DatabaseHelper(context,null);
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        ContentValues value = new ContentValues();
+        value.put("number",number);
+        value.put("password",password);
+        value.put("name",name);
+        long insert = db.insert(DatabaseHelper.USERINFO, null, value);
+        if (insert>0){
+            return true;
+        }
+        return false;
+    }
+
     //根据用户名查询用户信息
     public static UserBean getUserInfo(String number, Context context) {
 
@@ -114,7 +131,7 @@ public class UserDatabaseDao {
     }
 
     //修改密码啥的
-    public static boolean alertUserInfo(String password, String name, String number, Context context) {
+    public static boolean setUserInfo(String password, String name, String number, Context context) {
         databaseHelper = new DatabaseHelper(context, null);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
         if (name.equals("")) {

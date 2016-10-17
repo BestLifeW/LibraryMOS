@@ -2,17 +2,16 @@ package com.rjxy.librarymos.ui.activity;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.rjxy.librarymos.R;
-import com.rjxy.librarymos.database.UserDatabaseDao;
+import com.rjxy.librarymos.dao.UserDatabaseDao;
 import com.rjxy.librarymos.database.DatabaseHelper;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
@@ -61,31 +60,34 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     //注册的逻辑
     private void registerLogic() {
-        Log.i(TAG, "onClick: 我被点了");
+
         username = et_username.getText().toString().trim();
         usernumber = et_usernumber.getText().toString().trim();
         userpassword = et_userpassword.getText().toString().trim();
-        isHave = UserDatabaseDao.isUserExists(usernumber, getApplicationContext());
-        if (!isHave) {
-            if (!username.equals("") && !username.equals("") && !userpassword.equals("")) {
-                UserDatabaseDao.register(usernumber, userpassword, username, getApplicationContext());
-                Snackbar.make(getCurrentFocus(), "注册成功", Snackbar.LENGTH_LONG)
-                        .setAction("返回登陆", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                enterLogin();
-                            }
-                        })
-                        .show();
+        if (!usernumber.equals("Admin")) {
+            isHave = UserDatabaseDao.isUserExists(usernumber, getApplicationContext());
+            if (!isHave) {
+                if (!username.equals("") && !username.equals("") && !userpassword.equals("")) {
+                    UserDatabaseDao.register2(usernumber, userpassword, username, getApplicationContext());
+                    Snackbar.make(getCurrentFocus(), "注册成功", Snackbar.LENGTH_LONG)
+                            .setAction("返回登陆", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    enterLogin();
+                                }
+                            })
+                            .show();
+                } else {
+                    Snackbar.make(getCurrentFocus(), "以上三个为必填项", Snackbar.LENGTH_LONG).show();
+                }
             } else {
-                Snackbar.make(getCurrentFocus(), "以上三个为必填项", Snackbar.LENGTH_LONG).show();
+                //存在
+                Snackbar.make(getCurrentFocus(), "用户名已经被注册", Snackbar.LENGTH_LONG).show();
+                return;
             }
-        } else {
-            //存在
-            Snackbar.make(getCurrentFocus(), "用户名已经被注册", Snackbar.LENGTH_LONG).show();
-            return;
+        }else {
+            Snackbar.make(getCurrentFocus(), "用管理员账号注册？异想天开~", Snackbar.LENGTH_LONG).show();
         }
-
     }
 
     //进入登录页面

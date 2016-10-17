@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.rjxy.librarymos.R;
 import com.rjxy.librarymos.bean.UserBean;
-import com.rjxy.librarymos.database.UserDatabaseDao;
+import com.rjxy.librarymos.dao.UserDatabaseDao;
 import com.rjxy.librarymos.ui.activity.AccountManager;
 import com.rjxy.librarymos.ui.activity.LoginActivity;
 import com.rjxy.librarymos.utils.PrefUtils;

@@ -1,10 +1,10 @@
 package com.rjxy.librarymos.ui.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,7 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rjxy.librarymos.R;
-import com.rjxy.librarymos.database.UserDatabaseDao;
+import com.rjxy.librarymos.bean.AdminBean;
+import com.rjxy.librarymos.dao.AdminDatabaseDao;
+import com.rjxy.librarymos.dao.UserDatabaseDao;
 import com.rjxy.librarymos.utils.PrefUtils;
 
 public class LoginActivity extends AppCompatActivity {
@@ -65,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
         //管理员登陆 默认账户/密码  admin/admin
         btn_signup.setOnClickListener(new View.OnClickListener() {
 
+            private AdminBean adminiInfo;
             private String password;
 
 
@@ -73,17 +76,25 @@ public class LoginActivity extends AppCompatActivity {
                 usernumber = et_usernumber.getText().toString().trim();
                 password = et_userpassword.getText().toString().trim();
 
-                if (usernumber.equals("admin") || usernumber.equals("Admin") && password.equals("admin")) {
+                adminiInfo = AdminDatabaseDao.getAdminiInfo(usernumber, getApplicationContext());
+                String AdminPassword = adminiInfo.password;
+                if (usernumber.equals("Admin")) {
                     //登录管理员界面
-                    Toast.makeText(LoginActivity.this, "管理员登录啦！", Toast.LENGTH_SHORT).show();
+                    if (this.password.equals(AdminPassword)) {
+                        Toast.makeText(LoginActivity.this, "管理员登录啦！", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Snackbar.make(getCurrentFocus(), "管理员密码错误！", Snackbar.LENGTH_LONG).show();
+                    }
+
+
                 } else {
                     //判断用户的用户名 密码
-                    if (!usernumber.equals("") && !password.equals("")) {
+                    if (!usernumber.equals("") && !this.password.equals("")) {
                         //boolean isHave = UserDatabaseDao.checkLogin(usernumber, password, getApplicationContext());
                         boolean haveNumber = UserDatabaseDao.isHaveNumber(usernumber, getApplicationContext());
-                        if (haveNumber){
+                        if (haveNumber) {
                             String OKpassword = UserDatabaseDao.getUserPassword(usernumber, getApplicationContext());
-                            if (password.equals(OKpassword)) {
+                            if (this.password.equals(OKpassword)) {
                                 enterHome();
                                 PrefUtils.setBoolen(getApplicationContext(), "isLogin", true);
                                 PrefUtils.setString(getApplicationContext(), PrefUtils.NUMBER, usernumber);
@@ -91,8 +102,8 @@ public class LoginActivity extends AppCompatActivity {
                             } else {
                                 Snackbar.make(getCurrentFocus(), "密码输入错误，请重新输入", Snackbar.LENGTH_LONG).show();
                             }
-                        }else {
-                            Snackbar.make(getCurrentFocus(),"用户名不存在",Snackbar.LENGTH_LONG).show();
+                        } else {
+                            Snackbar.make(getCurrentFocus(), "用户名不存在", Snackbar.LENGTH_LONG).show();
                         }
 
                     } else {
@@ -129,6 +140,5 @@ public class LoginActivity extends AppCompatActivity {
         builder.setMessage("欢迎" + usernumber + "正在加载，请稍候 ");
         builder.show();
     }
-
 
 }
