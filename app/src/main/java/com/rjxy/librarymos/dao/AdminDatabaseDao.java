@@ -44,7 +44,7 @@ public class AdminDatabaseDao {
         ContentValues value = new ContentValues();
         value.put("password", password);
         //返回被影响到的个数，如果大于0 说明修改成功 返回true;
-        int update = db.update(DatabaseHelper.ADMININFO, value, "number=Admin", null);
+        int update = db.update(DatabaseHelper.ADMININFO, value, "number=\"Admin\"", null);
         if (update > 0) {
             return true;
         }

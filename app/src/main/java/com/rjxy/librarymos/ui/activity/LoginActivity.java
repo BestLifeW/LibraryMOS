@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rjxy.librarymos.R;
 import com.rjxy.librarymos.bean.AdminBean;
@@ -82,7 +81,8 @@ public class LoginActivity extends AppCompatActivity {
                     //登录管理员界面
                     if (this.password.equals(AdminPassword)) {
                         enterAdminActivity();
-                        Toast.makeText(LoginActivity.this, "管理员登录啦！", Toast.LENGTH_SHORT).show();
+                        //将帐号放去sp
+                        PrefUtils.setString(getApplicationContext(),PrefUtils.NUMBER,usernumber);
                     } else {
                         Snackbar.make(getCurrentFocus(), "管理员密码错误！", Snackbar.LENGTH_LONG).show();
                     }

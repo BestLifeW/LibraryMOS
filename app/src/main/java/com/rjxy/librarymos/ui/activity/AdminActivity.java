@@ -104,5 +104,5 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         finish();
-}
+    }
 }
