@@ -91,8 +91,8 @@ public class LoginActivity extends AppCompatActivity {
                     //判断用户的用户名 密码
                     if (!usernumber.equals("") && !this.password.equals("")) {
                         //boolean isHave = UserDatabaseDao.checkLogin(usernumber, password, getApplicationContext());
-                        boolean haveNumber = UserDatabaseDao.isHaveNumber(usernumber, getApplicationContext());
-                        if (haveNumber) {
+                        boolean isHaveNumber = UserDatabaseDao.isHaveNumber(usernumber, getApplicationContext());
+                        if (isHaveNumber) {
                             String OKpassword = UserDatabaseDao.getUserPassword(usernumber, getApplicationContext());
                             if (this.password.equals(OKpassword)) {
                                 enterHome();
