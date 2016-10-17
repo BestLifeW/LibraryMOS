@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.rjxy.librarymos.R;
-import com.rjxy.librarymos.database.DatabaseDao;
+import com.rjxy.librarymos.database.UserDatabaseDao;
 import com.rjxy.librarymos.database.DatabaseHelper;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
@@ -65,10 +65,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         username = et_username.getText().toString().trim();
         usernumber = et_usernumber.getText().toString().trim();
         userpassword = et_userpassword.getText().toString().trim();
-        isHave = DatabaseDao.isUserExists(usernumber, getApplicationContext());
+        isHave = UserDatabaseDao.isUserExists(usernumber, getApplicationContext());
         if (!isHave) {
             if (!username.equals("") && !username.equals("") && !userpassword.equals("")) {
-                DatabaseDao.register(usernumber, userpassword, username, getApplicationContext());
+                UserDatabaseDao.register(usernumber, userpassword, username, getApplicationContext());
                 Snackbar.make(getCurrentFocus(), "注册成功", Snackbar.LENGTH_LONG)
                         .setAction("返回登陆", new View.OnClickListener() {
                             @Override

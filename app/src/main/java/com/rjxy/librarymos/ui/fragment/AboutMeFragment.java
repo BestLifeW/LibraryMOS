@@ -16,11 +16,10 @@ import android.widget.TextView;
 
 import com.rjxy.librarymos.R;
 import com.rjxy.librarymos.bean.UserBean;
-import com.rjxy.librarymos.database.DatabaseDao;
+import com.rjxy.librarymos.database.UserDatabaseDao;
+import com.rjxy.librarymos.ui.activity.AccountManager;
 import com.rjxy.librarymos.ui.activity.LoginActivity;
 import com.rjxy.librarymos.utils.PrefUtils;
-
-import java.util.ArrayList;
 
 /**
  * Created by lovec on 2016/9/22.
@@ -33,6 +32,7 @@ public class AboutMeFragment extends Fragment implements View.OnLongClickListene
     private RelativeLayout rl_account_manager;
     private RelativeLayout rl_history;
     private RelativeLayout rl_setting;
+    private UserBean userInfo;
 
     @Nullable
     @Override
@@ -43,6 +43,7 @@ public class AboutMeFragment extends Fragment implements View.OnLongClickListene
         init();
         return view;
     }
+
     /*
     * 初始化
     * */
@@ -75,7 +76,7 @@ public class AboutMeFragment extends Fragment implements View.OnLongClickListene
     * 初始化数据
     * */
     private void initDate() {
-        ArrayList<UserBean> userInfo = DatabaseDao.getUserInfo(number, getActivity());
+        userInfo = UserDatabaseDao.getUserInfo(number, getActivity());
         if (number.equals("") || userInfo == null) {
             tv_username.setText("游客");
             tv_username.setOnLongClickListener(new View.OnLongClickListener() {
@@ -86,7 +87,7 @@ public class AboutMeFragment extends Fragment implements View.OnLongClickListene
                 }
             });
         } else {
-            tv_username.setText(userInfo.get(0).name);
+            tv_username.setText(userInfo.name);
             tv_username.setOnLongClickListener(this);
         }
 
@@ -104,7 +105,7 @@ public class AboutMeFragment extends Fragment implements View.OnLongClickListene
     * */
     @Override
     public boolean onLongClick(View v) {
-        ShowDialog("注销用户？", false);
+        ShowDialog("注销用户？"+userInfo.name, false);
         return true;
     }
 
@@ -142,7 +143,12 @@ public class AboutMeFragment extends Fragment implements View.OnLongClickListene
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rl_account_manager:
+                if (number.equals("")){
+                    Snackbar.make(getView(),"抱歉，您还未登录",Snackbar.LENGTH_LONG).show();
+                }else {
+
                 enterManager();
+                }
                 break;
             case R.id.rl_history:
                 enterHistory();
@@ -171,6 +177,9 @@ public class AboutMeFragment extends Fragment implements View.OnLongClickListene
     * 进入账号管理
     * */
     private void enterManager() {
+        Intent intent = new Intent(getActivity(), AccountManager.class);
+        intent.putExtra("number",number);
+        startActivity(intent);
         Snackbar.make(getView(),"进入账号管理",Snackbar.LENGTH_LONG).show();
     }
 }

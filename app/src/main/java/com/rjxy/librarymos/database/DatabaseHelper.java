@@ -23,8 +23,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //测试阶段
-        db.execSQL("create table " + USERINFO + "(  _id integer primary key AUTOINCREMENT,NUMBER varchar(30) ,password varchar(30),name varchar(30))");
-        //db.execSQL("");
+        db.execSQL("create table " + USERINFO + "(  _id integer primary key AUTOINCREMENT,number varchar(30) ,password varchar(30),name varchar(30))");
+
     }
 
     @Override
