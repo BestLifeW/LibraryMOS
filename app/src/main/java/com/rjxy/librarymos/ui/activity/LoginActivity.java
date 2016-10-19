@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rjxy.librarymos.R;
 import com.rjxy.librarymos.bean.AdminBean;
@@ -81,7 +80,9 @@ public class LoginActivity extends AppCompatActivity {
                 if (usernumber.equals("Admin")) {
                     //登录管理员界面
                     if (this.password.equals(AdminPassword)) {
-                        Toast.makeText(LoginActivity.this, "管理员登录啦！", Toast.LENGTH_SHORT).show();
+                        enterAdminActivity();
+                        //将帐号放去sp
+                        PrefUtils.setString(getApplicationContext(),PrefUtils.NUMBER,usernumber);
                     } else {
                         Snackbar.make(getCurrentFocus(), "管理员密码错误！", Snackbar.LENGTH_LONG).show();
                     }
@@ -91,8 +92,8 @@ public class LoginActivity extends AppCompatActivity {
                     //判断用户的用户名 密码
                     if (!usernumber.equals("") && !this.password.equals("")) {
                         //boolean isHave = UserDatabaseDao.checkLogin(usernumber, password, getApplicationContext());
-                        boolean haveNumber = UserDatabaseDao.isHaveNumber(usernumber, getApplicationContext());
-                        if (haveNumber) {
+                        boolean isHaveNumber = UserDatabaseDao.isHaveNumber(usernumber, getApplicationContext());
+                        if (isHaveNumber) {
                             String OKpassword = UserDatabaseDao.getUserPassword(usernumber, getApplicationContext());
                             if (this.password.equals(OKpassword)) {
                                 enterHome();
@@ -126,6 +127,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+
     //进入注册页面
     public void enterRegister() {
         Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
@@ -133,7 +135,13 @@ public class LoginActivity extends AppCompatActivity {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         finish();
     }
+    //进入管理员页面
+    public void enterAdminActivity() {
+        Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
+        startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
+    }
     private void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
         builder.setTitle("登录成功");

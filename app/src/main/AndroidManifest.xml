@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/icon"
+        android:icon="@drawable/appicon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -23,7 +23,12 @@
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".ui.activity.AccountManager" />
-        <activity android:name=".ui.activity.AboutActivity"></activity>
+        <activity android:name=".ui.activity.AboutActivity" />
+        <activity android:name=".ui.activity.AdminActivity" />
+        <activity android:name=".ui.activity.UsersOrdersManager" />
+        <activity android:name=".ui.activity.UsersManager" />
+        <activity android:name=".ui.activity.ModifyAdminPassword" />
+        <activity android:name=".ui.activity.BooksManager"></activity>
     </application>
 
 </manifest>
