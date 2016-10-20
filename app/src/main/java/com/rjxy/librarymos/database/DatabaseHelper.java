@@ -18,6 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String USERINFO = "user_info";
     public static final String BOOKINFO ="book_info";
     public static final String ADMININFO="admin_info";
+    public static final String BORROWINFO="borrow_info";
     private static final String TAG = "DatabaseHelper";
     public DatabaseHelper(Context context, SQLiteDatabase.CursorFactory factory) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
@@ -32,9 +33,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     * 初始化数据
     * */
     private void init(SQLiteDatabase db) {
-        db.execSQL("create table " + USERINFO + "(  _id integer primary key AUTOINCREMENT,number varchar(30) ,password varchar(30),name varchar(30))");
+        db.execSQL("create table " + USERINFO + "( _id integer primary key AUTOINCREMENT,number varchar(30) ,password varchar(30),name varchar(30))");
         db.execSQL("create table " + ADMININFO + "( number varchar(30) primary key,password varchar(30))");
+        db.execSQL("create table " + BOOKINFO + "( _id integer AUTOINCREMENT,bookname varchar(30),number integer(10),isbn integer(10) primary key,author varchar(30),press varchar(30),pressyear varchar(30),category varchar(30),summary varchar(30),photo blob)");
+        db.execSQL("create table " + BORROWINFO + "( _id integer primary key AUTOINCREMENT,number varchar(30) REFERENCES user_info(_id),isbn integer(10) REFERENCES book_info(isbn),borrowtime varchar(30)) ");
         initAdmin(db);
+        initBook(db);
     }
     /*
     * 初始化管理员账户密码
@@ -45,6 +49,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         value.put("password","admin");
         db.insert(ADMININFO,null,value);
         Log.i(TAG, "初始化管理员数据成功");
+    }
+
+    /*
+    * 初始化图书信息
+    * */
+    private void initBook(SQLiteDatabase db) {
+        ContentValues value = new ContentValues();
+        value.put("bookname","独立日");
+        value.put("number","3");
+        value.put("isbn","9787807681625");
+        value.put("author","魏小河 / 木卫二 / 陈宇慧@田螺姑娘 ");
+        value.put("press","生活•读书•新知三联书店 生活书店出版有限公司");
+        value.put("pressyear","2016-9-1");
+        value.put("category","散文");
+        value.put("summary","通哥没看过");
+        db.insert(BOOKINFO,null,value);
+        Log.i(TAG, "初始化图书数据成功");
     }
 
     @Override
