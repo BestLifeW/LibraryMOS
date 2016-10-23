@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@drawable/list_item_bg_normal"
+    android:gravity="clip_vertical"
+    android:id="@+id/ll_useritem"
+    android:orientation="vertical"
+
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用户名："
+            android:textColor="#3c3c3c"
+            android:textAllCaps="false"
+            android:textStyle="normal|bold"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="57dp"
+            android:layout_marginRight="57dp"
+            android:text="订阅数："
+            android:textColor="#3c3c3c"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/tv_useritem_odercout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            android:text="1本"
+            android:textColor="#3c3c3c"
+            android:textAlignment="center" />
+
+        <TextView
+            android:text="姓名："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView14"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:textColor="#3c3c3c"
+            android:textStyle="normal|bold"
+            android:textAlignment="center"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tv_useritem_number"
+            android:layout_toEndOf="@+id/tv_useritem_number" />
+
+        <TextView
+            android:id="@+id/tv_useritem_number"
+            android:layout_width="70dp"
+            android:gravity="left"
+            android:layout_height="wrap_content"
+            android:text="wtc123"
+            android:textColor="#3c3c3c"
+            android:textAlignment="center"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="46dp"
+            android:layout_marginStart="46dp" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="50dp"
+            android:textColor="#3c3c3c"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_useritem_name"
+            android:textAlignment="center"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/textView14"
+            android:layout_toEndOf="@+id/textView14" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

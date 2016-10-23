@@ -1,12 +1,16 @@
 package com.rjxy.librarymos.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Process;
 import android.view.View;
 
 import com.rjxy.librarymos.global.LibraryMOSApplication;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * 工具类
@@ -86,5 +90,11 @@ public class UIUtils {
             getHandler().post(r);
         }
     }
-
+    //把图片转换成字节码
+    public static byte[] img(Drawable drawable){
+        Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100,os);
+        return os.toByteArray();
+    }
 }

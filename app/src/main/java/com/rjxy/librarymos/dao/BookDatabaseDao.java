@@ -2,21 +2,16 @@ package com.rjxy.librarymos.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.view.View;
 
 import com.rjxy.librarymos.bean.BookBean;
 import com.rjxy.librarymos.database.DatabaseHelper;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.HashSet;
+
+import static com.rjxy.librarymos.utils.UIUtils.img;
 
 /**
  * Created by llt on 2016/10/19.
@@ -28,7 +23,7 @@ public class BookDatabaseDao {
 
     //查询所有图书信息
     public static ArrayList<BookBean> getBookInfo(Context context){
-        ArrayList<BookBean> booklist=new ArrayList<BookBean>();
+        ArrayList<BookBean> booklist=new ArrayList<>();
         databaseHelper = new DatabaseHelper(context, null);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
         String sql = "select * from " + DatabaseHelper.BOOKINFO;
@@ -62,14 +57,7 @@ public class BookDatabaseDao {
         return booklist;
     }
 
-    //把图片转换成字节码
-    public static byte[] img(Drawable drawable){
-        Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,100,os);
-        return os.toByteArray();
 
-    }
 
     //添加图书信息
     public static boolean AddBookInfo(BookBean book,Context context,Drawable drawable){

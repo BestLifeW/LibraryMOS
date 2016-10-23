@@ -25,8 +25,8 @@
         <activity android:name=".ui.activity.AccountManager" />
         <activity android:name=".ui.activity.AboutActivity" />
         <activity android:name=".ui.activity.AdminActivity" />
-        <activity android:name=".ui.activity.UsersOrdersManager" />
         <activity android:name=".ui.activity.UsersManager" />
+        <activity android:name=".ui.activity.UserOrderManager" />
         <activity android:name=".ui.activity.ModifyAdminPassword" />
         <activity android:name=".ui.activity.BooksManager"></activity>
     </application>

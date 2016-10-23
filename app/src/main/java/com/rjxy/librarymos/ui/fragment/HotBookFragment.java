@@ -7,15 +7,16 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.rjxy.librarymos.R;
-import com.rjxy.librarymos.adapter.RecyclerViewAdapter;
-import com.rjxy.librarymos.utils.UIUtils;
+import com.rjxy.librarymos.adapter.HotBookAdapter;
+import com.rjxy.librarymos.bean.BookBean;
+import com.rjxy.librarymos.dao.BookDatabaseDao;
+
+import java.util.ArrayList;
 
 /**
  * Created by lovec on 2016/9/22.
@@ -23,8 +24,11 @@ import com.rjxy.librarymos.utils.UIUtils;
 public class HotBookFragment extends Fragment {
 
     private View view;
-    private RecyclerView recyclerView;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
     private int[] imagesID = {R.drawable.s1319265,R.drawable.s1913020,R.drawable.s1934734,R.drawable.s2660498,R.drawable.s3297116};
+    private ArrayList<BookBean> bookInfo;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,8 +41,15 @@ public class HotBookFragment extends Fragment {
      *
      */
     public void init(){
+        initDate();
         initView();
         initEvent();
+    }
+
+    private void initDate() {
+        //初始化数据
+        bookInfo = BookDatabaseDao.getBookInfo(getActivity());
+
     }
 
     private void initEvent() {
@@ -47,12 +58,15 @@ public class HotBookFragment extends Fragment {
 
     private void initView() {
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.rlv_content);
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,
-                StaggeredGridLayoutManager.VERTICAL));
-        recyclerView.setAdapter(new RecyclerViewAdapter(getActivity(),imagesID));
-        SpacesItemDecoration decoration=new SpacesItemDecoration(16);
-        recyclerView.addItemDecoration(decoration);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.rlv_content);
+
+        mLayoutManager = new LinearLayoutManager(getActivity());
+
+        mRecyclerView.setAdapter(new HotBookAdapter(getActivity(),imagesID,bookInfo));
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setHasFixedSize(true);
+        //SpacesItemDecoration decoration=new SpacesItemDecoration(16);
+        //mRecyclerView.addItemDecoration(decoration);
     }
 
     public static HotBookFragment newInstance() {

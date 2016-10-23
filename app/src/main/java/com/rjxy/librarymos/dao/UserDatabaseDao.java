@@ -9,6 +9,8 @@ import android.util.Log;
 import com.rjxy.librarymos.bean.UserBean;
 import com.rjxy.librarymos.database.DatabaseHelper;
 
+import java.util.ArrayList;
+
 /**
  * Created by lovec on 2016/9/22.
  */
@@ -17,7 +19,7 @@ public class UserDatabaseDao {
 
     private static DatabaseHelper databaseHelper;
     private static final String TAG = "databaseDao";
-    private static String password="";
+    private static String password = "";
     private static String oknumber;
 
 
@@ -57,12 +59,12 @@ public class UserDatabaseDao {
         return false;
     }
 
-    public static boolean isHaveNumber(String number ,Context context){
-        databaseHelper = new DatabaseHelper(context,null);
+    public static boolean isHaveNumber(String number, Context context) {
+        databaseHelper = new DatabaseHelper(context, null);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
-        String sql = "select * from "+DatabaseHelper.USERINFO + " where number = ?";
+        String sql = "select * from " + DatabaseHelper.USERINFO + " where number = ?";
         Cursor cursor = db.rawQuery(sql, new String[]{number});
-        if (cursor.getCount()>0){
+        if (cursor.getCount() > 0) {
             cursor.close();
             db.close();
             return true;
@@ -81,7 +83,7 @@ public class UserDatabaseDao {
             password = cursor.getString(cursor.getColumnIndex("password"));
             cursor.close();
             db.close();
-            Log.i(TAG, "得到的密码是:"+password);
+            Log.i(TAG, "得到的密码是:" + password);
         }
         return password;
     }
@@ -95,15 +97,15 @@ public class UserDatabaseDao {
     }
 
     //新方法
-    public static boolean register2(String number,String password,String name,Context context){
-        databaseHelper=new DatabaseHelper(context,null);
+    public static boolean register2(String number, String password, String name, Context context) {
+        databaseHelper = new DatabaseHelper(context, null);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
         ContentValues value = new ContentValues();
-        value.put("number",number);
-        value.put("password",password);
-        value.put("name",name);
+        value.put("number", number);
+        value.put("password", password);
+        value.put("name", name);
         long insert = db.insert(DatabaseHelper.USERINFO, null, value);
-        if (insert>0){
+        if (insert > 0) {
             return true;
         }
         return false;
@@ -142,5 +144,32 @@ public class UserDatabaseDao {
             db.execSQL("update " + DatabaseHelper.USERINFO + " set password = '" + password + "'" + ",name = '" + name + "'" + " where number='" + number + "'");
         }
         return true;
+    }
+
+
+    //获取所有用户信息
+    public static ArrayList<UserBean> getAllUserInfo(Context context) {
+
+        ArrayList<UserBean> list = new ArrayList();
+        databaseHelper = new DatabaseHelper(context, null);
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        Cursor cursor = db.query(DatabaseHelper.USERINFO, null, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                UserBean userBean = new UserBean();
+                int id = cursor.getInt(0);//获取ID
+                String Number = cursor.getString(1);  //获取账户
+                String password = cursor.getString(2);//获取密码
+                String name = cursor.getString(3);  //获取名字
+                userBean.id = id;
+                userBean.name = name;
+                userBean.password = password;
+                userBean.number = Number;
+                list.add(userBean);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return list;
     }
 }
