@@ -76,7 +76,7 @@ public class AboutMeFragment extends Fragment implements View.OnLongClickListene
     * 初始化数据
     * */
     private void initDate() {
-        userInfo = UserDatabaseDao.getUserInfo(number, getActivity());
+        userInfo = UserDatabaseDao.getUserInfoByNumber(number, getActivity());
         if (number.equals("") || userInfo == null) {
             tv_username.setText("游客");
             tv_username.setOnLongClickListener(new View.OnLongClickListener() {

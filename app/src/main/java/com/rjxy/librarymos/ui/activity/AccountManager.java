@@ -34,7 +34,7 @@ public class AccountManager extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_manager);
         number = getIntent().getExtras().getString("number");
-        userInfo = UserDatabaseDao.getUserInfo(number, getApplicationContext());
+        userInfo = UserDatabaseDao.getUserInfoByNumber(number, getApplicationContext());
         //初始化
         init();
     }

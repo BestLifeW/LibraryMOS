@@ -112,7 +112,7 @@ public class UserDatabaseDao {
     }
 
     //根据用户名查询用户信息
-    public static UserBean getUserInfo(String number, Context context) {
+    public static UserBean getUserInfoByNumber(String number, Context context) {
 
         UserBean userBean = new UserBean();
         databaseHelper = new DatabaseHelper(context, null);

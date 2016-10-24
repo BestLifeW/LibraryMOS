@@ -1,7 +1,5 @@
 package com.rjxy.librarymos.bean;
 
-import java.sql.Blob;
-
 /**
  * Created by llt on 2016/10/19.
  */
@@ -10,7 +8,7 @@ public class BookBean {
     public int id;
     public String bookname;
     public int number;
-    public int isbn;
+    public String isbn;
     public String author;
     public String press;
     public String pressyear;

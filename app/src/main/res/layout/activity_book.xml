@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/background_gray"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/colorPrimary"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+    </android.support.v7.widget.Toolbar>
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_below="@id/toolbar2"
+        android:layout_width="match_parent"
+        android:background="@drawable/list_item_bg_normal"
+        android:layout_height="match_parent">
+
+        <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/activity_book"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context="com.rjxy.librarymos.ui.activity.BookActivity">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/s4404535" />
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_toEndOf="@+id/imageView4"
+                    android:layout_toRightOf="@+id/imageView4"
+                    android:text="书名："
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView17"
+                    android:layout_alignStart="@+id/textView17"
+                    android:layout_below="@+id/textView17"
+                    android:layout_marginTop="10dp"
+                    android:text="ISBN："
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView19"
+                    android:layout_alignStart="@+id/textView19"
+                    android:layout_below="@+id/textView19"
+                    android:layout_marginTop="10dp"
+                    android:text="作者："
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView20"
+                    android:layout_alignStart="@+id/textView20"
+                    android:layout_below="@+id/textView20"
+                    android:layout_marginTop="10dp"
+                    android:text="出版社："
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView21"
+                    android:layout_alignStart="@+id/textView21"
+                    android:layout_below="@+id/textView21"
+                    android:layout_marginTop="10dp"
+                    android:text="出版年份："
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:id="@+id/tv_bookitem_isbn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tv_bookitem_bookname"
+                    android:layout_alignStart="@+id/tv_bookitem_bookname"
+                    android:layout_alignTop="@+id/textView19"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/tv_bookitem_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:layout_alignLeft="@+id/tv_bookitem_isbn"
+                    android:layout_alignStart="@+id/tv_bookitem_isbn"
+                    android:layout_alignTop="@+id/textView20"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/tv_bookitem_press"
+                    android:layout_width="wrap_content"
+                    android:maxLines="1"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/textView21"
+                    android:layout_alignBottom="@+id/textView21"
+                    android:layout_alignLeft="@+id/tv_bookitem_author"
+                    android:layout_alignStart="@+id/tv_bookitem_author"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/tv_bookitem_des"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/imageView4"
+                    android:layout_marginTop="35dp"
+                    android:text="TextView"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_bookitem_bookname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:text="TextView"
+                    android:layout_above="@+id/textView19"
+                    android:layout_toRightOf="@+id/textView22"
+                    android:layout_toEndOf="@+id/textView22" />
+
+                <TextView
+                    android:id="@+id/tv_bookitem_pressyear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:layout_alignBaseline="@+id/textView22"
+                    android:layout_alignBottom="@+id/textView22"
+                    android:layout_alignLeft="@+id/tv_bookitem_press"
+                    android:layout_alignStart="@+id/tv_bookitem_press" />
+
+
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/btn_reserve"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="订阅" />
+</RelativeLayout>

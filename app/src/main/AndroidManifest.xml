@@ -28,7 +28,9 @@
         <activity android:name=".ui.activity.UsersManager" />
         <activity android:name=".ui.activity.UserOrderManager" />
         <activity android:name=".ui.activity.ModifyAdminPassword" />
-        <activity android:name=".ui.activity.BooksManager"></activity>
+        <activity android:name=".ui.activity.BooksManager" />
+        <activity android:name=".ui.activity.BookActivity"
+            android:theme="@style/NoTitleBar"></activity>
     </application>
 
 </manifest>

@@ -35,8 +35,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private void init(SQLiteDatabase db) {
         db.execSQL("create table " + USERINFO + "( _id integer primary key AUTOINCREMENT,number varchar(30) ,password varchar(30),name varchar(30))");
         db.execSQL("create table " + ADMININFO + "( number varchar(30) primary key,password varchar(30))");
-        db.execSQL("create table " + BOOKINFO + "( bookname varchar(30),number integer(10),isbn integer(10) primary key,author varchar(30),press varchar(30),pressyear varchar(30),category varchar(30),summary varchar(30),photo blob)");
-        db.execSQL("create table " + BORROWINFO + "( _id integer primary key AUTOINCREMENT,number varchar(30) REFERENCES user_info(_id),isbn integer(10) REFERENCES book_info(isbn),borrowtime varchar(30)) ");
+        db.execSQL("create table " + BOOKINFO + "( bookname varchar(30),number integer(10),isbn varchar(10) primary key,author varchar(30),press varchar(30),pressyear varchar(30),category varchar(30),summary varchar(30),photo blob)");
+        db.execSQL("create table " + BORROWINFO + "( _id integer primary key AUTOINCREMENT,number varchar(30) REFERENCES user_info(_id),isbn varchar(10) REFERENCES book_info(isbn),borrowtime varchar(30)) ");
         initAdmin(db);
         initBook(db);
     }
