@@ -51,7 +51,7 @@ public class HotBookAdapter extends RecyclerView.Adapter<HotBookAdapter.MyViewHo
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
         //holder.rlv_item_img.setImageResource(imagesId[position]);
-        holder.rlv_item_title.setText(mList.get(position).isbn);
+        holder.rlv_item_title.setText(mList.get(position).bookname);
         holder.news_desc.setText(mList.get(position).sunmmary);
         holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
