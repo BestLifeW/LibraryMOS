@@ -147,7 +147,7 @@ public class UserDatabaseDao {
     }
 
 
-    //获取所有用户信息
+
     public static ArrayList<UserBean> getAllUserInfo(Context context) {
 
         ArrayList<UserBean> list = new ArrayList();
@@ -157,7 +157,7 @@ public class UserDatabaseDao {
         if (cursor.moveToFirst()) {
             do {
                 UserBean userBean = new UserBean();
-                int id = cursor.getInt(0);//获取ID
+                int id = cursor.getInt(0);//获取ID..
                 String Number = cursor.getString(1);  //获取账户
                 String password = cursor.getString(2);//获取密码
                 String name = cursor.getString(3);  //获取名字
