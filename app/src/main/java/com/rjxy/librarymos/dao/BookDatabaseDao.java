@@ -107,7 +107,7 @@ public class BookDatabaseDao {
         }
         cursor.close();
         db.close();
-        return book;
+        return book;//.
     }
     /*
     * select * from book_info WHERE isbn in (
@@ -144,6 +144,6 @@ public class BookDatabaseDao {
         }
         cursor.close();
         db.close();
-        return bookList;
+        return bookList;//.
     }
 }
