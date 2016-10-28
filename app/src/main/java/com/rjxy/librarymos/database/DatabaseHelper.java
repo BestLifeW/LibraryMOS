@@ -2,9 +2,17 @@ package com.rjxy.librarymos.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.util.Log;
+
+import com.rjxy.librarymos.R;
+import com.rjxy.librarymos.utils.PrefUtils;
 
 /**
  * Created by lovec on 2016/9/22.
@@ -59,6 +67,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     * */
     private void initBook(SQLiteDatabase db) {
         ContentValues value = new ContentValues();
+        Resources resources= Resources.getSystem();
+        Bitmap bitmap = BitmapFactory.decodeResource(Resources.getSystem(),R.drawable.appicon);
+        byte[] photo = PrefUtils.bmpToByteArray(bitmap);
         value.put("bookname", "独立日");
         value.put("number", 3);
         value.put("isbn", "9787807681625");
@@ -67,6 +78,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         value.put("pressyear", "2016-9-1");
         value.put("category", "散文");
         value.put("summary", "本套装共三本：《独立日：用一间书房抵抗全世界》《独立日：用电影延长三倍生命》《独立日：日出之食》。");
+        value.put("photo",photo);
         db.insert(BOOKINFO, null, value);
         Log.i(TAG, "初始化图书数据成功");
 
