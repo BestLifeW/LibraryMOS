@@ -118,7 +118,7 @@ public class BookDatabaseDao {
         databaseHelper = new DatabaseHelper(context, null);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
         //String sql = "select * from " + DatabaseHelper.BOOKINFO + " where isbn = ?";
-        String sql = "select * from " + DatabaseHelper.BOOKINFO + "where isbn in (select reserve_info.isbn FROM reserve_info where number = ?)";
+        String sql = "select * from " + DatabaseHelper.BOOKINFO + " where isbn in (select reserve_info.isbn FROM reserve_info where number = ?)";
         ArrayList<BookBean> bookList = new ArrayList<>();
         Cursor cursor = db.rawQuery(sql, new String[]{usernumber});
 

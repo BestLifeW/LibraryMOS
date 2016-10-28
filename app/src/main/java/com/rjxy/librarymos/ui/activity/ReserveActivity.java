@@ -119,6 +119,8 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
                         int reserve = Integer.parseInt(reserve_number);
                         ReserveDatabassDao.updateReserveQuantity(getApplicationContext(), reserve, book_isbn);
                         Snackbar.make(rl_reserve, "恭喜，预定成功！", Snackbar.LENGTH_LONG).show();
+                        int number1 = bookBean.number;
+                        tv_reserve_shownumber.setText(number1 - reserve + "本");
                     } else {
                         Snackbar.make(rl_reserve, "抱歉，预定失败！", Snackbar.LENGTH_LONG).show();
                     }
