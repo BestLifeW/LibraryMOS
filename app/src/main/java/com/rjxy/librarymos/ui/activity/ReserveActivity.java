@@ -1,5 +1,6 @@
 package com.rjxy.librarymos.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,11 @@ import android.widget.TextView;
 import com.rjxy.librarymos.R;
 import com.rjxy.librarymos.bean.BookBean;
 import com.rjxy.librarymos.dao.BookDatabaseDao;
+import com.rjxy.librarymos.dao.ReserveDatabassDao;
+import com.rjxy.librarymos.utils.PrefUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import cn.qqtheme.framework.picker.DatePicker;
 import cn.qqtheme.framework.picker.NumberPicker;
@@ -31,6 +37,7 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
     private TextView tv_reserve_number;
     private static final String TAG = "ReserveActivity";
     private RelativeLayout rl_reserve;
+    private String usernumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +45,7 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_reserve);
         book_isbn = getIntent().getStringExtra("book_info");
         bookBean = BookDatabaseDao.getBookInfoByISBN(getApplicationContext(), book_isbn);
-
+        usernumber = PrefUtils.getString(getApplicationContext(), PrefUtils.NUMBER, "");
         init();
 
     }
@@ -87,21 +94,57 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
 
 
     private void Submit() {
-        //提交
-        String reserve_number = tv_reserve_number.getText().toString();
-        String tv_reserve_time = this.tv_reserve_time.getText().toString();
-        int number = Integer.parseInt(reserve_number);
-        Log.i(TAG, "Submit: " + number);
-        if (number > bookBean.number) {
-            Snackbar.make(rl_reserve, "抱歉，图书不足，请重新选择", Snackbar.LENGTH_LONG).show();
-            return;
-        }
-        if (tv_reserve_time == null && tv_reserve_time.equals("")) {
-            Snackbar.make(rl_reserve, "预定日期是必选项", Snackbar.LENGTH_LONG).show();
-            return;
-        }
 
+        if (!(usernumber == null && usernumber.equals(""))) {
+            //提交
+            String reserve_number = tv_reserve_number.getText().toString();
+            String tv_reserve_time = this.tv_reserve_time.getText().toString();
+            int number = Integer.parseInt(reserve_number);
+            Log.i(TAG, "Submit: " + number);
+            if (number > bookBean.number) {
+                Snackbar.make(rl_reserve, "抱歉，图书不足，请重新选择", Snackbar.LENGTH_LONG).show();
+                Log.i(TAG, "时间是" + tv_reserve_time);
+            } else {
+                if (tv_reserve_time.equals("请选择")) {
+                    Snackbar.make(rl_reserve, "预定日期是必选项", Snackbar.LENGTH_LONG).show();
 
+                } else {
+                    Date date = new Date();
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    String currentTime = format.format(date);
+
+                    boolean b = ReserveDatabassDao.setReserveInfo(getApplicationContext(), usernumber, book_isbn, currentTime, tv_reserve_time, reserve_number);
+
+                    if (b) {
+                        int reserve = Integer.parseInt(reserve_number);
+                        ReserveDatabassDao.updateReserveQuantity(getApplicationContext(), reserve, book_isbn);
+                        Snackbar.make(rl_reserve, "恭喜，预定成功！", Snackbar.LENGTH_LONG).show();
+                    } else {
+                        Snackbar.make(rl_reserve, "抱歉，预定失败！", Snackbar.LENGTH_LONG).show();
+                    }
+                }
+            }
+        } else {
+            Snackbar.make(rl_reserve, "抱歉，您还未登陆", Snackbar.LENGTH_LONG).setAction("返回登陆?", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    returnRegister();
+                }
+            }).show();
+        }
+    }
+
+    /*
+    * 返回注册界面
+    *   if (tv_reserve_time == null && tv_reserve_time.equals("请选择")) {
+                Snackbar.make(rl_reserve, "预定日期是必选项", Snackbar.LENGTH_LONG).show();
+                return;
+            }
+    * */
+    private void returnRegister() {
+        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 

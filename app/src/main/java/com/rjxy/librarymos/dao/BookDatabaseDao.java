@@ -85,7 +85,7 @@ public class BookDatabaseDao {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
         String sql = "select * from " + DatabaseHelper.BOOKINFO + " where isbn = ?";
 
-        Cursor cursor = db.rawQuery(sql,new String[]{id});
+        Cursor cursor = db.rawQuery(sql, new String[]{id});
         BookBean book = new BookBean();
         if (cursor.moveToFirst()) {
             String bookname = cursor.getString(cursor.getColumnIndex("bookname"));  //获取书名
@@ -109,5 +109,41 @@ public class BookDatabaseDao {
         db.close();
         return book;
     }
+    /*
+    * select * from book_info WHERE isbn in (
+    select reserve_info.isbn FROM reserve_info WHERE number = "")
+    * */
 
+    public static ArrayList<BookBean> getByResverISBN(Context context, String usernumber) {
+        databaseHelper = new DatabaseHelper(context, null);
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        //String sql = "select * from " + DatabaseHelper.BOOKINFO + " where isbn = ?";
+        String sql = "select * from " + DatabaseHelper.BOOKINFO + "where isbn in (select reserve_info.isbn FROM reserve_info where number = ?)";
+        ArrayList<BookBean> bookList = new ArrayList<>();
+        Cursor cursor = db.rawQuery(sql, new String[]{usernumber});
+
+        if (cursor.moveToFirst()) {
+            BookBean book = new BookBean();
+            String bookname = cursor.getString(cursor.getColumnIndex("bookname"));  //获取书名
+            int number = cursor.getInt(cursor.getColumnIndex("number"));//获取剩余数量
+            String isbn = cursor.getString(cursor.getColumnIndex("isbn"));  //获取isbn编码
+            String author = cursor.getString(cursor.getColumnIndex("author"));
+            String press = cursor.getString(cursor.getColumnIndex("press"));
+            String pressyear = cursor.getString(cursor.getColumnIndex("pressyear"));
+            String category = cursor.getString(cursor.getColumnIndex("category"));
+            String summary = cursor.getString(cursor.getColumnIndex("summary"));
+            book.bookname = bookname;
+            book.number = number;
+            book.isbn = isbn;
+            book.author = author;
+            book.press = press;
+            book.pressyear = pressyear;
+            book.category = category;
+            book.sunmmary = summary;
+            bookList.add(book);
+        }
+        cursor.close();
+        db.close();
+        return bookList;
+    }
 }
