@@ -7,19 +7,18 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.util.Log;
 
 import com.rjxy.librarymos.R;
-import com.rjxy.librarymos.utils.PrefUtils;
+import com.rjxy.librarymos.utils.UIUtils;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Created by lovec on 2016/9/22.
  */
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-
 
     private static final String DATABASE_NAME = "Library_DB.db";
     private static final int DATABASE_VERSION = 1;
@@ -28,9 +27,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String ADMININFO = "admin_info";
     public static final String RESERVEINFO = "reserve_info";
     private static final String TAG = "DatabaseHelper";
+    private Context context;
 
     public DatabaseHelper(Context context, SQLiteDatabase.CursorFactory factory) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+        this.context=context;
     }
 
     @Override
@@ -62,14 +63,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.i(TAG, "初始化管理员数据成功");
     }
 
+
     /*
     * 初始化图书信息
     * */
     private void initBook(SQLiteDatabase db) {
         ContentValues value = new ContentValues();
-        Resources resources= Resources.getSystem();
-        Bitmap bitmap = BitmapFactory.decodeResource(Resources.getSystem(),R.drawable.appicon);
-        byte[] photo = PrefUtils.bmpToByteArray(bitmap);
+        ByteArrayOutputStream bos=new ByteArrayOutputStream();
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.appicon);
+        Log.i("图片","bitmap:"+bitmap);
+        bitmap.compress(Bitmap.CompressFormat.PNG,100,bos);
+        byte[] photo = bos.toByteArray();
+        Log.i("图片","photo:"+photo);
         value.put("bookname", "独立日");
         value.put("number", 3);
         value.put("isbn", "9787807681625");
