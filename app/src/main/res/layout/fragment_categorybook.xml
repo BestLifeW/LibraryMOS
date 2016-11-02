@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
+    <Button
+        android:id="@+id/allbook"
+        android:text="顯示全部"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <GridView
+        android:id="@+id/GridView"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:numColumns="3"
+        android:horizontalSpacing="10dp"
+        android:verticalSpacing="10dp"
+        android:columnWidth="90dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        android:layout_marginTop="20px"
+        android:layout_marginRight="20px"
+        android:layout_marginLeft="20px">
+    </GridView>
 
 </LinearLayout>
