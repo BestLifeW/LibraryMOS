@@ -90,6 +90,7 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
             } else {
                 Intent intent = new Intent(getApplicationContext(), ReserveActivity.class);
                 intent.putExtra("book_info", bookInfo.isbn);
+                finish();
                 startActivity(intent);
             }
         } else {

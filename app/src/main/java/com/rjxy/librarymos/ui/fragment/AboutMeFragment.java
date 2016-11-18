@@ -33,6 +33,7 @@ public class AboutMeFragment extends Fragment implements View.OnLongClickListene
     private RelativeLayout rl_history;
     private RelativeLayout rl_setting;
     private UserBean userInfo;
+    private RelativeLayout rl_exit;
 
     @Nullable
     @Override
@@ -60,6 +61,7 @@ public class AboutMeFragment extends Fragment implements View.OnLongClickListene
         rl_account_manager.setOnClickListener(this);
         rl_history.setOnClickListener(this);
         rl_setting.setOnClickListener(this);
+        rl_exit.setOnClickListener(this);
     }
 
     /*
@@ -69,7 +71,9 @@ public class AboutMeFragment extends Fragment implements View.OnLongClickListene
         tv_username = (TextView) view.findViewById(R.id.tv_username);
         rl_account_manager = (RelativeLayout) view.findViewById(R.id.rl_account_manager);
         rl_history = (RelativeLayout) view.findViewById(R.id.rl_history);
-        rl_setting = (RelativeLayout)view.findViewById(R.id.rl_setting);
+        rl_setting = (RelativeLayout) view.findViewById(R.id.rl_setting);
+        rl_exit = (RelativeLayout) view.findViewById(R.id.rl_exit);
+
     }
 
     /*
@@ -100,19 +104,19 @@ public class AboutMeFragment extends Fragment implements View.OnLongClickListene
         fragment.setArguments(args);
         return fragment;
     }
+
     /*
     * 文字点击事件  弹出对话框 询问是否注销
     * */
     @Override
     public boolean onLongClick(View v) {
-        ShowDialog("注销用户？"+userInfo.name, false);
+        ShowDialog("注销用户？" + userInfo.name, false);
         return true;
     }
 
     /**
-     *
      * @param alert  根据用户不同 提示不同
-     * @param isUser  判断是否是用户
+     * @param isUser 判断是否是用户
      */
     private void ShowDialog(String alert, final boolean isUser) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -137,17 +141,17 @@ public class AboutMeFragment extends Fragment implements View.OnLongClickListene
 
     /**
      * 按钮点击事件
+     *
      * @param v
      */
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.rl_account_manager:
-                if (number.equals("")){
-                    Snackbar.make(getView(),"抱歉，您还未登录",Snackbar.LENGTH_LONG).show();
-                }else {
-
-                enterManager();
+                if (number.equals("")) {
+                    Snackbar.make(getView(), "抱歉，您还未登录", Snackbar.LENGTH_LONG).show();
+                } else {
+                    enterManager();
                 }
                 break;
             case R.id.rl_history:
@@ -156,30 +160,43 @@ public class AboutMeFragment extends Fragment implements View.OnLongClickListene
             case R.id.rl_setting:
                 enterSetting();
                 break;
+            case R.id.rl_exit:
+                quit();
             default:
                 break;
         }
     }
+
+    //退出登陆 返回界面
+    private void quit() {
+
+        ShowDialog("注销用户？" + userInfo.name, false);
+        //PrefUtils.setString(getActivity(), PrefUtils.NUMBER, "");
+        //startActivity(new Intent(getContext(), LoginActivity.class));
+        //getActivity().finish();
+    }
+
     /*
     * 设置界面
     * */
     private void enterSetting() {
-        Snackbar.make(getView(),"进入设置界面",Snackbar.LENGTH_LONG).show();
+        Snackbar.make(getView(), "进入设置界面", Snackbar.LENGTH_LONG).show();
 
     }
     /*
     * 进入历史纪录
     * */
     private void enterHistory() {
-        Snackbar.make(getView(),"进入历史纪录",Snackbar.LENGTH_LONG).show();
+        Snackbar.make(getView(), "进入历史纪录", Snackbar.LENGTH_LONG).show();
     }
+
     /*
     * 进入账号管理
     * */
     private void enterManager() {
         Intent intent = new Intent(getActivity(), AccountManager.class);
-        intent.putExtra("number",number);
+        intent.putExtra("number", number);
         startActivity(intent);
-        Snackbar.make(getView(),"进入账号管理",Snackbar.LENGTH_LONG).show();
+        Snackbar.make(getView(), "进入账号管理", Snackbar.LENGTH_LONG).show();
     }
 }

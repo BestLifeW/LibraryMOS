@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,7 +27,7 @@ public class HotBookFragment extends Fragment {
     private View view;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
-    private int[] imagesID = {R.drawable.s1319265,R.drawable.s1913020,R.drawable.s1934734,R.drawable.s2660498,R.drawable.s3297116};
+    private int[] imagesID = {R.drawable.s1319265, R.drawable.s1913020, R.drawable.s1934734, R.drawable.s2660498, R.drawable.s3297116};
     private ArrayList<BookBean> bookInfo;
 
     @Nullable
@@ -37,10 +38,7 @@ public class HotBookFragment extends Fragment {
         return view;
     }
 
-    /**
-     *
-     */
-    public void init(){
+    public void init() {
         initDate();
         initView();
         initEvent();
@@ -62,11 +60,12 @@ public class HotBookFragment extends Fragment {
 
         mLayoutManager = new LinearLayoutManager(getActivity());
 
-        mRecyclerView.setAdapter(new HotBookAdapter(getActivity(),imagesID,bookInfo));
+        mRecyclerView.setAdapter(new HotBookAdapter(getActivity(), imagesID, bookInfo));
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setHasFixedSize(true);
-        //SpacesItemDecoration decoration=new SpacesItemDecoration(16);
-        //mRecyclerView.addItemDecoration(decoration);
+        SpacesItemDecoration decoration = new SpacesItemDecoration(20);
+        mRecyclerView.addItemDecoration(decoration);
     }
 
     public static HotBookFragment newInstance() {
@@ -85,16 +84,16 @@ public class HotBookFragment extends Fragment {
         private int space;
 
         public SpacesItemDecoration(int space) {
-            this.space=space;
+            this.space = space;
         }
 
         @Override
         public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-            outRect.left=space;
-            outRect.right=space;
-            outRect.bottom=space;
-            if(parent.getChildAdapterPosition(view)==0){
-                outRect.top=space;
+            outRect.left = space;
+            outRect.right = space;
+            outRect.bottom = space;
+            if (parent.getChildAdapterPosition(view) == 0) {
+                outRect.top = space;
             }
         }
     }

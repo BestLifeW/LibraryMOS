@@ -122,25 +122,28 @@ public class BookDatabaseDao {
         ArrayList<BookBean> bookList = new ArrayList<>();
         Cursor cursor = db.rawQuery(sql, new String[]{usernumber});
 
+
         if (cursor.moveToFirst()) {
-            BookBean book = new BookBean();
-            String bookname = cursor.getString(cursor.getColumnIndex("bookname"));  //获取书名
-            int number = cursor.getInt(cursor.getColumnIndex("number"));//获取剩余数量
-            String isbn = cursor.getString(cursor.getColumnIndex("isbn"));  //获取isbn编码
-            String author = cursor.getString(cursor.getColumnIndex("author"));
-            String press = cursor.getString(cursor.getColumnIndex("press"));
-            String pressyear = cursor.getString(cursor.getColumnIndex("pressyear"));
-            String category = cursor.getString(cursor.getColumnIndex("category"));
-            String summary = cursor.getString(cursor.getColumnIndex("summary"));
-            book.bookname = bookname;
-            book.number = number;
-            book.isbn = isbn;
-            book.author = author;
-            book.press = press;
-            book.pressyear = pressyear;
-            book.category = category;
-            book.sunmmary = summary;
-            bookList.add(book);
+            do {
+                BookBean book = new BookBean();
+                String bookname = cursor.getString(cursor.getColumnIndex("bookname"));  //获取书名
+                int number = cursor.getInt(cursor.getColumnIndex("number"));//获取剩余数量
+                String isbn = cursor.getString(cursor.getColumnIndex("isbn"));  //获取isbn编码
+                String author = cursor.getString(cursor.getColumnIndex("author"));
+                String press = cursor.getString(cursor.getColumnIndex("press"));
+                String pressyear = cursor.getString(cursor.getColumnIndex("pressyear"));
+                String category = cursor.getString(cursor.getColumnIndex("category"));
+                String summary = cursor.getString(cursor.getColumnIndex("summary"));
+                book.bookname = bookname;
+                book.number = number;
+                book.isbn = isbn;
+                book.author = author;
+                book.press = press;
+                book.pressyear = pressyear;
+                book.category = category;
+                book.sunmmary = summary;
+                bookList.add(book);
+            } while (cursor.moveToNext());
         }
         cursor.close();
         db.close();

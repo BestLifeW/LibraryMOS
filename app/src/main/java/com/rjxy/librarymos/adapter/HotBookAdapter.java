@@ -69,7 +69,8 @@ public class HotBookAdapter extends RecyclerView.Adapter<HotBookAdapter.MyViewHo
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_SUBJECT, "分享");
-                //intent.putExtra(Intent.EXTRA_TEXT, newses.get(j).getDesc());
+                String share = "书名:" + mList.get(position).bookname + "   内容简介:" + mList.get(position).sunmmary;
+                intent.putExtra(Intent.EXTRA_TEXT, share);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
@@ -78,9 +79,10 @@ public class HotBookAdapter extends RecyclerView.Adapter<HotBookAdapter.MyViewHo
         holder.readMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent=new Intent(context,NewsActivity.class);
-                //intent.putExtra("News",newses.get(j));
-                //context.startActivity(intent);
+                Intent intent = new Intent(context, BookActivity.class);
+                intent.putExtra("book_isbn", mList.get(position).isbn);
+                Log.i(TAG, "传输过去" + mList.get(position).isbn);
+                context.startActivity(intent);
             }
         });
     }

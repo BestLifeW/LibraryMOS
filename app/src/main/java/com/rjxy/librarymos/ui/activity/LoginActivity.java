@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (this.password.equals(AdminPassword)) {
                         enterAdminActivity();
                         //将帐号放去sp
-                        PrefUtils.setString(getApplicationContext(),PrefUtils.NUMBER,usernumber);
+                        PrefUtils.setString(getApplicationContext(), PrefUtils.NUMBER, usernumber);
                     } else {
                         Snackbar.make(getCurrentFocus(), "管理员密码错误！", Snackbar.LENGTH_LONG).show();
                     }
@@ -127,7 +127,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
     //进入注册页面
     public void enterRegister() {
         Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
@@ -135,6 +134,7 @@ public class LoginActivity extends AppCompatActivity {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         finish();
     }
+
     //进入管理员页面
     public void enterAdminActivity() {
         Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
@@ -142,6 +142,7 @@ public class LoginActivity extends AppCompatActivity {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
     }
+
     private void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
         builder.setTitle("登录成功");

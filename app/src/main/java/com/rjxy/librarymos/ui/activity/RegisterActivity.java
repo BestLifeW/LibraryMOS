@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +29,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private SQLiteDatabase db;
     private static final String TAG = "RegisterActivity";
     private boolean isHave;
+    private NestedScrollView activity_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         et_userpassword = (EditText) findViewById(R.id.et_userpassword);
         et_username = (EditText) findViewById(R.id.et_username);
         btn_register = (Button) findViewById(R.id.btn_register);
-
+        activity_login = (NestedScrollView) findViewById(R.id.activity_login);
         //设置注册按钮点击事件
         btn_register.setOnClickListener(this);
     }
@@ -69,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             if (!isHave) {
                 if (!username.equals("") && !username.equals("") && !userpassword.equals("")) {
                     UserDatabaseDao.register2(usernumber, userpassword, username, getApplicationContext());
-                    Snackbar.make(getCurrentFocus(), "注册成功", Snackbar.LENGTH_LONG)
+                    Snackbar.make(activity_login, "注册成功", Snackbar.LENGTH_LONG)
                             .setAction("返回登陆", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -78,15 +80,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             })
                             .show();
                 } else {
-                    Snackbar.make(getCurrentFocus(), "以上三个为必填项", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(activity_login, "以上三个为必填项", Snackbar.LENGTH_LONG).show();
                 }
             } else {
                 //存在
-                Snackbar.make(getCurrentFocus(), "用户名已经被注册", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(activity_login, "用户名已经被注册", Snackbar.LENGTH_LONG).show();
                 return;
             }
-        }else {
-            Snackbar.make(getCurrentFocus(), "用管理员账号注册？异想天开~", Snackbar.LENGTH_LONG).show();
+        } else {
+            Snackbar.make(activity_login, "用管理员账号注册？异想天开~", Snackbar.LENGTH_LONG).show();
         }
     }
 
