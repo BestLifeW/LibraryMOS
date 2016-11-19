@@ -14,11 +14,11 @@
         android:paddingLeft="24dp"
         android:background="@drawable/list_item_bg_normal"
         android:paddingRight="24dp"
-        android:paddingTop="56dp">
+        android:paddingTop="20dp">
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="100sp"
+            android:layout_height="80sp"
             android:textSize="25sp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/li"
