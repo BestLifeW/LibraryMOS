@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.rjxy.librarymos.R;
+import com.rjxy.librarymos.utils.PrefUtils;
 import com.rjxy.librarymos.utils.UIUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -69,11 +70,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     * */
     private void initBook(SQLiteDatabase db) {
         ContentValues value = new ContentValues();
-        ByteArrayOutputStream bos=new ByteArrayOutputStream();
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.appicon);
         Log.i("图片","bitmap:"+bitmap);
-        bitmap.compress(Bitmap.CompressFormat.PNG,100,bos);
-        byte[] photo = bos.toByteArray();
+        byte[] photo = PrefUtils.bmpToByteArray(bitmap);
         Log.i("图片","photo:"+photo);
         value.put("bookname", "独立日");
         value.put("number", 3);
@@ -88,6 +87,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.i(TAG, "初始化图书数据成功");
 
         ContentValues value1 = new ContentValues();
+        Bitmap bitmap1 = BitmapFactory.decodeResource(context.getResources(),R.drawable.yijudingyiwanju);
+        byte[] photo1 = PrefUtils.bmpToByteArray(bitmap1);
         value1.put("bookname", "一句顶一万句");
         value1.put("number", 3);
         value1.put("isbn", "9787535486752");
@@ -96,6 +97,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         value1.put("pressyear", " 2016-8");
         value1.put("category", "散文");
         value1.put("summary", "本书是著名作家刘震云先生参磨四年的杠鼎之作。被北京五大评论家誉为“中国的《百年孤独》（诺贝尔获奖作家马尔克斯的作品）” ，是刘震云迄今为止最成熟最大气的作品。这部小说洗尽铅华，返璞归真，笔触始终紧贴苦难的大地和贱如草芥的底层人群，结构单纯而内容丰富，命悬一丝而荡气回肠，主人公常常走投无路而又一直勇往直前。这是当代文坛敢于直面真实的不可多得的佳作。著名评论家张颐武说，该书是刘震云“最具企图心和想象力的作品，也是他超越自我的最为坚韧的努力的成果。”");
+        value1.put("photo",photo1);
         db.insert(BOOKINFO, null, value1);
         Log.i(TAG, "初始化图书数据成功");
 
@@ -108,6 +110,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         value2.put("pressyear", "2016-9-1");
         value2.put("category", "散文");
         value2.put("summary", "从事更年期研究工作20年的诺斯鲁普博士通过亲身经历和众多精彩的案例，彻底颠覆了传统观点，证明绝经绝不仅仅意味着使女性失去生育能力。成为人见人厌的“黄脸婆”。相反。身体正在向你发出各种信号，提醒你生活将进入一个全新的层面。诺斯鲁普博士的更年期研究，给女性打开了一片全新的天地，她深厚的专业背景也为这部伟大作品提供了强大的说服力和实用价值，其中不乏前沿医学技术和最好的自然愈合方法。即使是专业的医务人员也能从中获益匪浅。这部充满爱、鼓舞和力量的著作将指导女性度过波动的更年期，从容、通达、高质量地享受余生。");
+        value2.put("photo",photo);
         db.insert(BOOKINFO, null, value2);
         Log.i(TAG, "初始化图书数据成功");
 

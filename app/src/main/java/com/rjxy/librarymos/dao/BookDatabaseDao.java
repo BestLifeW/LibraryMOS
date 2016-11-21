@@ -4,14 +4,15 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 
 import com.rjxy.librarymos.bean.BookBean;
 import com.rjxy.librarymos.database.DatabaseHelper;
+import com.rjxy.librarymos.utils.PrefUtils;
 
 import java.util.ArrayList;
 
-import static com.rjxy.librarymos.utils.UIUtils.img;
+
 
 /**
  * Created by llt on 2016/10/19.
@@ -59,11 +60,11 @@ public class BookDatabaseDao {
 
 
     //添加图书信息
-    public static boolean AddBookInfo(BookBean book, Context context, Drawable drawable) {
+    public static boolean AddBookInfo(BookBean book, Context context, Bitmap bitmap) {
         databaseHelper = new DatabaseHelper(context, null);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
         ContentValues values = new ContentValues();
-        book.photo = img(drawable);
+        book.photo = PrefUtils.bmpToByteArray(bitmap);
         values.put("bookname", book.bookname);
         values.put("number", book.number);
         values.put("isbn", book.isbn);
@@ -96,6 +97,7 @@ public class BookDatabaseDao {
             String pressyear = cursor.getString(cursor.getColumnIndex("pressyear"));
             String category = cursor.getString(cursor.getColumnIndex("category"));
             String summary = cursor.getString(cursor.getColumnIndex("summary"));
+            byte[] photo = cursor.getBlob(cursor.getColumnIndex("photo"));
             book.bookname = bookname;
             book.number = number;
             book.isbn = isbn;
@@ -104,6 +106,7 @@ public class BookDatabaseDao {
             book.pressyear = pressyear;
             book.category = category;
             book.sunmmary = summary;
+            book.photo = photo;
         }
         cursor.close();
         db.close();

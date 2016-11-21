@@ -5,8 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -58,11 +64,33 @@ public class PrefUtils {
         return bos.toByteArray();
     }
 
+    public static Bitmap byteArrayToBmp(byte[] photo){
+        Bitmap bitmap = BitmapFactory.decodeByteArray(photo, 0, photo.length, null);
+        return bitmap;
+    }
+
+    //打开相册
     public static void getImageFromAlbum(Activity activity) {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         activity.startActivityForResult(intent, 0);
     }
+
+    //相册获取Bitmap
+    public static Bitmap getBitmap(Uri uri,Activity activity){
+        Bitmap bitmap=null;
+        try{
+            InputStream inputStream = activity.getContentResolver().openInputStream(uri);
+            bitmap = BitmapFactory.decodeStream(inputStream);
+            inputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+
 
     // TODO: 2016/11/1 存取ArrayList的方法  
     public static boolean setStringArry(Context context, ArrayList<String> list) {
