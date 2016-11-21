@@ -89,6 +89,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues value1 = new ContentValues();
         Bitmap bitmap1 = BitmapFactory.decodeResource(context.getResources(),R.drawable.yjdywj);
         byte[] photo1 = PrefUtils.bmpToByteArray(bitmap1);
+        Log.i("图片","photo:"+photo1);
         value1.put("bookname", "一句顶一万句");
         value1.put("number", 3);
         value1.put("isbn", "9787535486752");
