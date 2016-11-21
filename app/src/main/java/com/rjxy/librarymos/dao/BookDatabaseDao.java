@@ -42,6 +42,7 @@ public class BookDatabaseDao {
                 String pressyear = cursor.getString(cursor.getColumnIndex("pressyear"));
                 String category = cursor.getString(cursor.getColumnIndex("category"));
                 String summary = cursor.getString(cursor.getColumnIndex("summary"));
+                byte[] photo = cursor.getBlob(cursor.getColumnIndex("photo"));
                 book.bookname = bookname;
                 book.number = number;
                 book.isbn = isbn;
@@ -50,6 +51,7 @@ public class BookDatabaseDao {
                 book.pressyear = pressyear;
                 book.category = category;
                 book.sunmmary = summary;
+                book.photo = photo;
                 booklist.add(book);
             } while (cursor.moveToNext());
         }
@@ -137,6 +139,7 @@ public class BookDatabaseDao {
                 String pressyear = cursor.getString(cursor.getColumnIndex("pressyear"));
                 String category = cursor.getString(cursor.getColumnIndex("category"));
                 String summary = cursor.getString(cursor.getColumnIndex("summary"));
+                byte[] photo = cursor.getBlob(cursor.getColumnIndex("photo"));
                 book.bookname = bookname;
                 book.number = number;
                 book.isbn = isbn;
@@ -145,6 +148,7 @@ public class BookDatabaseDao {
                 book.pressyear = pressyear;
                 book.category = category;
                 book.sunmmary = summary;
+                book.photo = photo;
                 bookList.add(book);
             } while (cursor.moveToNext());
         }

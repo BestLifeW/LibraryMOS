@@ -3,6 +3,7 @@ package com.rjxy.librarymos.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.rjxy.librarymos.R;
 import com.rjxy.librarymos.bean.BookBean;
 import com.rjxy.librarymos.ui.activity.BookActivity;
+import com.rjxy.librarymos.utils.PrefUtils;
 
 import java.util.ArrayList;
 
@@ -50,7 +52,11 @@ public class HotBookAdapter extends RecyclerView.Adapter<HotBookAdapter.MyViewHo
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
-        //holder.rlv_item_img.setImageResource(imagesId[position]);
+        byte[] photo=mList.get(position).photo;
+        Log.i("图片：","photo："+photo);
+        Bitmap bitmap = PrefUtils.byteArrayToBmp(photo);
+        Log.i("图片：","bitmap："+bitmap);
+        holder.rlv_item_img.setImageBitmap(bitmap);
         holder.rlv_item_title.setText(mList.get(position).bookname);
         holder.news_desc.setText(mList.get(position).sunmmary);
         holder.card_view.setOnClickListener(new View.OnClickListener() {

@@ -1,10 +1,12 @@
 package com.rjxy.librarymos.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rjxy.librarymos.R;
@@ -53,6 +55,11 @@ public class ResverAdapter extends RecyclerView.Adapter<ResverAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+
+        byte[] photo = mlist.get(position).photo;
+        Bitmap bitmap = PrefUtils.byteArrayToBmp(photo);
+        holder.iv_bookitem_im.setImageBitmap(bitmap);
+
         holder.tv_bookitem_title.setText(mlist.get(position).bookname);
         holder.tv_bookitem_anthuor.setText("提交时间:" + reserList.get(position).SubmitTime);
         holder.tv_bookitem_dec.setText(mlist.get(position).sunmmary);
@@ -67,6 +74,7 @@ public class ResverAdapter extends RecyclerView.Adapter<ResverAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        private final ImageView iv_bookitem_im;
         private final TextView tv_bookitem_title;
         private final TextView tv_bookitem_anthuor;
         private final TextView tv_bookitem_dec;
@@ -75,6 +83,7 @@ public class ResverAdapter extends RecyclerView.Adapter<ResverAdapter.ViewHolder
         public ViewHolder(View itemView) {
             super(itemView);
 
+            iv_bookitem_im = (ImageView) itemView.findViewById(R.id.iv_bookitem_im);
             tv_bookitem_title = (TextView) itemView.findViewById(R.id.tv_bookitem_title);
             tv_bookitem_anthuor = (TextView) itemView.findViewById(R.id.tv_bookitem_anthuor);
             tv_bookitem_dec = (TextView) itemView.findViewById(R.id.tv_bookitem_dec);
