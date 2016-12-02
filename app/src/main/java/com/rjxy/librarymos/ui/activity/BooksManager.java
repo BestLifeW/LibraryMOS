@@ -22,7 +22,6 @@ import java.util.ArrayList;
 
 public class BooksManager extends AppCompatActivity {
 
-    private SwipeMenuRecyclerView swipeMenuRecyclerView;
     private ArrayList<BookBean> bookInfo;
     private Context mContext;
 
@@ -44,7 +43,7 @@ public class BooksManager extends AppCompatActivity {
     }
 
     private void initView() {
-        swipeMenuRecyclerView = (SwipeMenuRecyclerView) findViewById(R.id.recycler_view);
+        SwipeMenuRecyclerView swipeMenuRecyclerView = (SwipeMenuRecyclerView) findViewById(R.id.recycler_view);
         // 设置菜单创建器。
         swipeMenuRecyclerView.setSwipeMenuCreator(swipeMenuCreator);
         // 设置菜单Item点击监听。

@@ -1,20 +1,23 @@
 package com.rjxy.librarymos.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rjxy.librarymos.R;
 import com.rjxy.librarymos.bean.BookBean;
+import com.rjxy.librarymos.utils.PrefUtils;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuAdapter;
 
 import java.util.ArrayList;
 
 /**
- * Created by TianChaoWang on 2016/10/31.
+ * Created By TianChaoWang on 2016/10/31.
  */
 
 public class BookManagerAdapter extends SwipeMenuAdapter<BookManagerAdapter.BookMangerHolder> {
@@ -38,13 +41,17 @@ public class BookManagerAdapter extends SwipeMenuAdapter<BookManagerAdapter.Book
 
     @Override
     public BookManagerAdapter.BookMangerHolder onCompatCreateViewHolder(View realContentView, int viewType) {
-        BookManagerAdapter.BookMangerHolder holder = new BookManagerAdapter.BookMangerHolder(realContentView);
-        return holder;
+        return new BookMangerHolder(realContentView);
     }
 
     @Override
     public void onBindViewHolder(BookManagerAdapter.BookMangerHolder holder, int position) {
         holder.book_title.setText(mList.get(position).bookname);
+        byte[] photo=mList.get(position).photo;
+        //Log.i("图片：","photo："+photo);
+        Bitmap bitmap = PrefUtils.byteArrayToBmp(photo);
+        //Log.i("图片：","bitmap："+bitmap);
+        holder.iv_bookitem_im.setImageBitmap(bitmap);
     }
 
     @Override
@@ -52,14 +59,15 @@ public class BookManagerAdapter extends SwipeMenuAdapter<BookManagerAdapter.Book
             return mList.size()!=0?mList.size():0;
     }
 
-    public class BookMangerHolder extends RecyclerView.ViewHolder {
+     class BookMangerHolder extends RecyclerView.ViewHolder {
 
-        TextView book_title;
+         ImageView iv_bookitem_im;
+         TextView book_title;
 
-        public BookMangerHolder(View itemView) {
+         BookMangerHolder(View itemView) {
             super(itemView);
             book_title = (TextView) itemView.findViewById(R.id.tv_bookitem_title);
-
-        }
+             iv_bookitem_im = (ImageView) itemView.findViewById(R.id.iv_bookitem_im);
+         }
     }
 }
