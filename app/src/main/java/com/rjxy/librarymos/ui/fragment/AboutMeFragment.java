@@ -19,6 +19,7 @@ import com.rjxy.librarymos.bean.UserBean;
 import com.rjxy.librarymos.dao.UserDatabaseDao;
 import com.rjxy.librarymos.ui.activity.AccountManager;
 import com.rjxy.librarymos.ui.activity.LoginActivity;
+import com.rjxy.librarymos.ui.activity.SettingActivity;
 import com.rjxy.librarymos.utils.PrefUtils;
 
 /**
@@ -181,7 +182,8 @@ public class AboutMeFragment extends Fragment implements View.OnLongClickListene
     * */
     private void enterSetting() {
         Snackbar.make(getView(), "进入设置界面", Snackbar.LENGTH_LONG).show();
-
+        Intent intent = new Intent(getContext(),SettingActivity.class);
+        startActivity(intent);
     }
     /*
     * 进入历史纪录

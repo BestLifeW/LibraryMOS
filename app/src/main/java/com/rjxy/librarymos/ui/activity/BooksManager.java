@@ -1,10 +1,13 @@
 package com.rjxy.librarymos.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 import android.widget.Toast;
 
 import com.rjxy.librarymos.R;
@@ -24,6 +27,7 @@ public class BooksManager extends AppCompatActivity {
 
     private ArrayList<BookBean> bookInfo;
     private Context mContext;
+    private FloatingActionButton flab_addbook;
 
 
     @Override
@@ -58,14 +62,27 @@ public class BooksManager extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         swipeMenuRecyclerView.setLayoutManager(linearLayoutManager);
         swipeMenuRecyclerView.setAdapter(new BookManagerAdapter(mContext, bookInfo));
+
+        //初始化按钮
+        flab_addbook = (FloatingActionButton) findViewById(R.id.flab_addbook);
+        flab_addbook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转到添加书籍界面
+                enterAddBook();
+            }
+        });
+    }
+
+    //添加书籍
+    private void enterAddBook() {
+        startActivity(new Intent(getApplicationContext(),AddbookActivity.class));
     }
 
     /*
     * 展示删除提示框
     * */
     private void showDeleteDialog(int adapterPosition) {
-        // TODO: 2016/11/18  
-        
         Toast.makeText(mContext, bookInfo.get(adapterPosition).bookname, Toast.LENGTH_SHORT).show();
     }
 
@@ -74,8 +91,8 @@ public class BooksManager extends AppCompatActivity {
         public void onCreateMenu(SwipeMenu swipeLeftMenu, SwipeMenu swipeRightMenu, int viewType) {
 
             SwipeMenuItem deleteItem = new SwipeMenuItem(getApplication())
-                    //.setBackgroundDrawable(R.drawable.selector_red)
-                    //.setImage(R.mipmap.ic_action_delete) // 图标。
+                    //.setBackgroundDrawable(R.drawable.ic_delete_white_24dp)
+                    .setImage(R.drawable.ic_delete_white_24dp) // 图标。
                     .setText("删除") // 文字。
                     .setTextColor(Color.parseColor("#3c3c3c")) // 文字颜色。
                     .setTextSize(16) // 文字大小。

@@ -76,7 +76,7 @@ public class PrefUtils {
         activity.startActivityForResult(intent, 0);
     }
 
-    //相册获取Bitmap
+    //相册获取Bitmapx
     public static Bitmap getBitmap(Uri uri,Activity activity){
         Bitmap bitmap=null;
         try{

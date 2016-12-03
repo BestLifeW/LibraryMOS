@@ -17,4 +17,16 @@
         <attr name="civ_fill_color" format="color" />
     </declare-styleable>
 
+
+    <string-array name="spingarr">
+            <item>传记名著</item>
+            <item>出版小说</item>
+            <item>人文社科</item>
+            <item>生活时尚</item>
+            <item>经历管理</item>
+            <item>外文原著</item>
+            <item>健康教育</item>
+            <item>成功励志</item>
+            <item>政治军事</item>
+        </string-array>
 </resources>

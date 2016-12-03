@@ -19,7 +19,7 @@
         </activity>
         <activity
             android:name=".ui.activity.HomeActivity"
-            android:theme="@style/NoTitleBar" />
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".ui.activity.AccountManager" />
@@ -32,7 +32,9 @@
         <activity
             android:name=".ui.activity.BookActivity"
             android:theme="@style/NoTitleBar" />
-        <activity android:name=".ui.activity.ReserveActivity"></activity>
+        <activity android:name=".ui.activity.ReserveActivity" />
+        <activity android:name=".ui.activity.AddbookActivity" />
+        <activity android:name=".ui.activity.SettingActivity"></activity>
     </application>
 
 </manifest>

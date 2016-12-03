@@ -37,7 +37,7 @@ public class ResverAdapter extends RecyclerView.Adapter<ResverAdapter.ViewHolder
     }
 
     /*
-    * 初始化数据
+    * 初始化数据 nnm,
     * */
     private void initDate() {
         userNumber = PrefUtils.getString(context, PrefUtils.NUMBER, "");

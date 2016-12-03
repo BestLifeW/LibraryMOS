@@ -1,19 +1,25 @@
 package com.rjxy.librarymos.ui.activity;
 
 
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rjxy.librarymos.R;
@@ -22,6 +28,9 @@ import com.rjxy.librarymos.ui.fragment.AboutMeFragment;
 import com.rjxy.librarymos.ui.fragment.CategoryBookFragment;
 import com.rjxy.librarymos.ui.fragment.HotBookFragment;
 import com.rjxy.librarymos.ui.fragment.SubscribeFrament;
+import com.rjxy.librarymos.utils.UIUtils;
+
+import static android.support.v7.app.AppCompatDelegate.MODE_NIGHT_AUTO;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -31,19 +40,17 @@ public class HomeActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private int[] tabIcons = {R.drawable.imageview_homeselector, R.drawable.imageview_categoryselector, R.drawable.imageview_subscriptionselector, R.drawable.imageview_aboutmeselector};
     private ViewPager mViewPager;
-    private ImageView img_title;
     private static final String TAG = "HomeActivity";
+    private TextView mNightView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         setSupportActionBar(toolbar);
-
 
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         MyViewPagerAdapter viewPagerAdapter = new MyViewPagerAdapter(getSupportFragmentManager());
@@ -143,7 +150,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public View getTabView(int position) {
         View view = LayoutInflater.from(this).inflate(R.layout.item_tab, null);
-        img_title = (ImageView) view.findViewById(R.id.img_title);
+        ImageView img_title = (ImageView) view.findViewById(R.id.img_title);
         img_title.setImageResource(tabIcons[position]);
         return view;
     }
@@ -163,4 +170,9 @@ public class HomeActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+
+
+
+
 }

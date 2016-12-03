@@ -97,11 +97,11 @@ public class CategoryBookFragment extends Fragment {
             meumList.add(map7);
             HashMap<String, Object> map8 = new HashMap<String, Object>();
             map8.put("ItemImage", R.drawable.s4404535);
-            map8.put("ItemText","成功勵志");
+            map8.put("ItemText","成功励志");
             meumList.add(map8);
             HashMap<String, Object> map9 = new HashMap<String, Object>();
             map9.put("ItemImage", R.drawable.s4404535);
-            map9.put("ItemText","政治軍事");
+            map9.put("ItemText","政治军事");
             meumList.add(map9);
 
 

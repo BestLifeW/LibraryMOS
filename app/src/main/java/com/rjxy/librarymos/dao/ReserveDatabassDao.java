@@ -100,4 +100,27 @@ public class ReserveDatabassDao {
         return list;
     }
 
+    public static ArrayList<ReserveBean> getAllReserve(Context context) {
+        databaseHelper = new DatabaseHelper(context, null);
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        ArrayList<ReserveBean> list = new ArrayList<>();
+        String sql = "select * from " + DatabaseHelper.RESERVEINFO;
+        Cursor cursor = db.rawQuery(sql,new String[]{});
+        if (cursor.moveToFirst()) {
+            ReserveBean reserveBean = new ReserveBean();
+            do {
+                reserveBean.UserNumber = cursor.getString(cursor.getColumnIndex("number"));
+                reserveBean.SubmitTime = cursor.getString(cursor.getColumnIndex("submitime"));
+                reserveBean.ReserveTime = cursor.getString(cursor.getColumnIndex("reservetime"));
+
+                list.add(reserveBean);
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        db.close();
+
+        return list;
+    }
+
 }
