@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 
 import com.rjxy.librarymos.bean.BookBean;
 import com.rjxy.librarymos.database.DatabaseHelper;
+import com.rjxy.librarymos.ui.fragment.CategoryBookFragment;
 import com.rjxy.librarymos.utils.PrefUtils;
 
 import java.util.ArrayList;
@@ -27,8 +28,10 @@ public class BookDatabaseDao {
         ArrayList<BookBean> booklist = new ArrayList<>();
         databaseHelper = new DatabaseHelper(context, null);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
-        String sql = "select * from " + DatabaseHelper.BOOKINFO;
+        CategoryBookFragment categoryBookFragment=new CategoryBookFragment();
 
+        String sql = "select * from " + DatabaseHelper.BOOKINFO +" where category like '%"+categoryBookFragment.conly+"%'";
+        categoryBookFragment.conly="";
         Cursor cursor = db.rawQuery(sql, null);
 
         if (cursor.moveToFirst()) {

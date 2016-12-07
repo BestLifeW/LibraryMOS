@@ -31,12 +31,10 @@ import static android.content.ContentValues.TAG;
 public class HotBookAdapter extends RecyclerView.Adapter<HotBookAdapter.MyViewHolder> {
 
     private Context context;
-    private int[] imagesId;
     private ArrayList<BookBean> mList = new ArrayList<>();
 
-    public HotBookAdapter(Context context, int[] image, ArrayList<BookBean> bookInfo) {
+    public HotBookAdapter(Context context, ArrayList<BookBean> bookInfo) {
         this.context = context;
-        this.imagesId = image;
         this.mList = bookInfo;
     }
 
@@ -114,7 +112,7 @@ public class HotBookAdapter extends RecyclerView.Adapter<HotBookAdapter.MyViewHo
             news_desc = (TextView) itemView.findViewById(R.id.news_desc);
             rlv_item_title.setBackgroundColor(Color.argb(20, 0, 0, 0));
             card_view = (CardView) itemView.findViewById(R.id.card_view);
-            share = (Button) itemView.findViewById(R.id.btn_share);
+           share = (Button) itemView.findViewById(R.id.btn_share);
             readMore = (Button) itemView.findViewById(R.id.btn_more);
         }
     }

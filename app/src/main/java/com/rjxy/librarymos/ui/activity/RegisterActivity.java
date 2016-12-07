@@ -1,7 +1,6 @@
 package com.rjxy.librarymos.ui.activity;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.NestedScrollView;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 
 import com.rjxy.librarymos.R;
 import com.rjxy.librarymos.dao.UserDatabaseDao;
-import com.rjxy.librarymos.database.DatabaseHelper;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -25,9 +23,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private String usernumber;
     private String username;
     private String userpassword;
-    private DatabaseHelper databaseHelper;
-    private SQLiteDatabase db;
-    private static final String TAG = "RegisterActivity";
+    //private DatabaseHelper databaseHelper;
+   // private SQLiteDatabase db;
+    //private static final String TAG = "RegisterActivity";
     private boolean isHave;
     private NestedScrollView activity_login;
 

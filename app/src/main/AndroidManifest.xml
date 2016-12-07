@@ -34,7 +34,9 @@
             android:theme="@style/NoTitleBar" />
         <activity android:name=".ui.activity.ReserveActivity" />
         <activity android:name=".ui.activity.AddbookActivity" />
-        <activity android:name=".ui.activity.SettingActivity"></activity>
+        <activity android:name=".ui.activity.SettingActivity" />
+        <activity android:name=".ui.activity.C_all" />
+        <activity android:name=".ui.activity.C_only"></activity>
     </application>
 
 </manifest>

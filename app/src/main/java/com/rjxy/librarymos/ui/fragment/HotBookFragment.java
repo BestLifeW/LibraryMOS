@@ -27,7 +27,7 @@ public class HotBookFragment extends Fragment {
     private View view;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
-    private int[] imagesID = {R.drawable.s1319265, R.drawable.s1913020, R.drawable.s1934734, R.drawable.s2660498, R.drawable.s3297116};
+    //private int[] imagesID = {R.drawable.s1319265, R.drawable.s1913020, R.drawable.s1934734, R.drawable.s2660498, R.drawable.s3297116};
     private ArrayList<BookBean> bookInfo;
 
     @Nullable
@@ -60,7 +60,7 @@ public class HotBookFragment extends Fragment {
 
         mLayoutManager = new LinearLayoutManager(getActivity());
 
-        mRecyclerView.setAdapter(new HotBookAdapter(getActivity(), imagesID, bookInfo));
+        mRecyclerView.setAdapter(new HotBookAdapter(getActivity(), bookInfo));
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setHasFixedSize(true);

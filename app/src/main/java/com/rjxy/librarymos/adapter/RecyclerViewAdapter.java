@@ -11,10 +11,6 @@ import android.widget.TextView;
 
 import com.rjxy.librarymos.R;
 
-import java.util.List;
-
-import static com.rjxy.librarymos.R.id.rlv_item_img;
-
 /**
  * 作者：lovec on 2016/9/25 20:23
  * 邮箱：lovecanon0823@gmail.com
