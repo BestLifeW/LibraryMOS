@@ -36,7 +36,8 @@
         <activity android:name=".ui.activity.AddbookActivity" />
         <activity android:name=".ui.activity.SettingActivity" />
         <activity android:name=".ui.activity.C_all" />
-        <activity android:name=".ui.activity.C_only"></activity>
+        <activity android:name=".ui.activity.C_only" />
+        <activity android:name=".ui.activity.Order"></activity>
     </application>
 
 </manifest>
