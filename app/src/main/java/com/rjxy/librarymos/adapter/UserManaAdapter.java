@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.rjxy.librarymos.R;
 import com.rjxy.librarymos.bean.UserBean;
+import com.rjxy.librarymos.dao.ReserveDatabassDao;
 import com.rjxy.librarymos.view.DialogPopup;
 
 import java.util.ArrayList;
@@ -42,14 +43,11 @@ public class UserManaAdapter extends RecyclerView.Adapter<UserManaAdapter.UserMa
 
     @Override
     public void onBindViewHolder(UserManaHolder holder, final int position) {
-        holder.tv_useritem_number.setText(list.get(position).number);
+        String number =list.get(position).number;
+        int odercount = ReserveDatabassDao.getUserReserveQuantity(context,number);
+        holder.tv_useritem_number.setText(number);
         holder.tv_useritem_name.setText(list.get(position).name);
-        holder.ll_useritem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DialogPopup((Activity) context).showPopupWindow();
-            }
-        });
+        holder.tv_useritem_odercout.setText(odercount+"本");
     }
 
     @Override
@@ -61,13 +59,13 @@ public class UserManaAdapter extends RecyclerView.Adapter<UserManaAdapter.UserMa
 
         TextView tv_useritem_number;
         TextView tv_useritem_name;
-        LinearLayout ll_useritem;
+        TextView tv_useritem_odercout;
 
         public UserManaHolder(View itemView) {
             super(itemView);
             tv_useritem_number = (TextView) itemView.findViewById(R.id.tv_useritem_number);
             tv_useritem_name = (TextView) itemView.findViewById(R.id.tv_useritem_name);
-            ll_useritem = (LinearLayout) itemView.findViewById(R.id.ll_useritem);
+            tv_useritem_odercout = (TextView) itemView.findViewById(R.id.tv_useritem_odercout);
         }
     }
 

@@ -3,6 +3,7 @@ package com.rjxy.librarymos.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.rjxy.librarymos.R;
 import com.rjxy.librarymos.bean.BookBean;
 import com.rjxy.librarymos.bean.ReserveBean;
+import com.rjxy.librarymos.dao.BookDatabaseDao;
 import com.rjxy.librarymos.utils.PrefUtils;
 
 import java.util.ArrayList;
@@ -23,15 +25,12 @@ import java.util.ArrayList;
 public class ResverAdapter extends RecyclerView.Adapter<ResverAdapter.ViewHolder> {
 
     private Context context;
-    private ArrayList<BookBean> mlist;
     private ArrayList<ReserveBean> reserList;
     private String userNumber;
-
-    public ResverAdapter(Context context, ArrayList<BookBean> bookList, ArrayList<ReserveBean> reserveinfo) {
+    private static final String TAG = "ResverAdapter";
+    public ResverAdapter(Context context, ArrayList<ReserveBean> reserveinfo) {
         this.context = context;
-        mlist = new ArrayList<>();
         this.reserList = new ArrayList<>();
-        mlist = bookList;
         this.reserList = reserveinfo;
         initDate();
     }
@@ -55,16 +54,21 @@ public class ResverAdapter extends RecyclerView.Adapter<ResverAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        String isbn = reserList.get(position).BookIsbn;
+        reserList.get(position).toString();
+        Log.i(TAG, "onBindViewHolder: "+reserList.get(position).toString()+position);
+        BookBean bookBean = BookDatabaseDao.getBookInfoByISBN(context,isbn);
 
-        byte[] photo = mlist.get(position).photo;
+        byte[] photo = bookBean.photo;
         Bitmap bitmap = PrefUtils.byteArrayToBmp(photo);
         holder.iv_resveritem_im.setImageBitmap(bitmap);
 
-        holder.tv_resveritem_title.setText(mlist.get(position).bookname);
+        holder.tv_resveritem_title.setText(bookBean.bookname);
         holder.tv_resveritem_anthuor.setText("提交时间:" + reserList.get(position).SubmitTime);
-        holder.tv_resveritem_dec.setText(mlist.get(position).sunmmary);
+        holder.tv_resveritem_dec.setText(bookBean.sunmmary);
         holder.tv_resveritem_resvertime.setText("预约时间:" + reserList.get(position).ReserveTime);
         holder.tv_resveritem_approve.setText(reserList.get(position).approve);
+        holder.tv_resveritem_quantity.setText("数量:"+reserList.get(position).quantity+"本");
     }
 
     @Override
@@ -80,6 +84,7 @@ public class ResverAdapter extends RecyclerView.Adapter<ResverAdapter.ViewHolder
         private final TextView tv_resveritem_dec;
         private final TextView tv_resveritem_resvertime;
         private final TextView tv_resveritem_approve;
+        private final TextView tv_resveritem_quantity;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -90,6 +95,7 @@ public class ResverAdapter extends RecyclerView.Adapter<ResverAdapter.ViewHolder
             tv_resveritem_dec = (TextView) itemView.findViewById(R.id.tv_resveritem_dec);
             tv_resveritem_resvertime = (TextView) itemView.findViewById(R.id.tv_resveritem_resvertime);
             tv_resveritem_approve = (TextView) itemView.findViewById(R.id.tv_resveritem_approve);
+            tv_resveritem_quantity = (TextView) itemView.findViewById(R.id.tv_resveritem_quantity);
         }
     }
 }

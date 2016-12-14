@@ -63,7 +63,7 @@ public class SubscribeFrament extends Fragment {
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
         SpacesItemDecoration decoration = new SpacesItemDecoration(20);
         rlv_reserve.addItemDecoration(decoration);
-        rlv_reserve.setAdapter(new ResverAdapter(getContext(), bookList, reserveinfo));
+        rlv_reserve.setAdapter(new ResverAdapter(getContext(), reserveinfo));
         srl_reserve = (SwipeRefreshLayout) view.findViewById(R.id.srl_reserve);
         
         srl_reserve.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

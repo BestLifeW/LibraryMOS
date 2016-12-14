@@ -92,10 +92,13 @@ public class ReserveDatabassDao {
         String sql = "select * from " + DatabaseHelper.RESERVEINFO + " where number = ?";
         Cursor cursor = db.rawQuery(sql, new String[]{usernumber});
         if (cursor.moveToFirst()) {
-            ReserveBean reserveBean = new ReserveBean();
+
             do {
+                ReserveBean reserveBean = new ReserveBean();
+                reserveBean.BookIsbn = cursor.getString(cursor.getColumnIndex("isbn"));
                 reserveBean.UserNumber = cursor.getString(cursor.getColumnIndex("number"));
                 reserveBean.SubmitTime = cursor.getString(cursor.getColumnIndex("submitime"));
+                reserveBean.quantity = cursor.getString(cursor.getColumnIndex("quantity"));
                 reserveBean.ReserveTime = cursor.getString(cursor.getColumnIndex("reservetime"));
                 reserveBean.approve = cursor.getString(cursor.getColumnIndex("approve"));
                 list.add(reserveBean);
@@ -131,4 +134,21 @@ public class ReserveDatabassDao {
         return list;
     }
 
+    //查询用户借阅数
+    public static int getUserReserveQuantity(Context context,String usernumber){
+        databaseHelper = new DatabaseHelper(context,null);
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        String sql = "select * from " + DatabaseHelper.RESERVEINFO + " where number=" + "\"" + usernumber + "\"";
+        Cursor cursor = db.rawQuery(sql,new String[]{});
+        int quantity=0;
+        if (cursor.moveToFirst()) {
+            do {
+                quantity+=Integer.parseInt(cursor.getString(cursor.getColumnIndex("quantity")));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        return quantity;
+    }
 }
