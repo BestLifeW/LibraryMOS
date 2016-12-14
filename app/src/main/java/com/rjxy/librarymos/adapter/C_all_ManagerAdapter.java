@@ -14,11 +14,15 @@ import android.widget.TextView;
 
 import com.rjxy.librarymos.R;
 import com.rjxy.librarymos.bean.BookBean;
+import com.rjxy.librarymos.bean.HistoryBean;
+import com.rjxy.librarymos.dao.HistoryDatabaseDao;
 import com.rjxy.librarymos.ui.activity.BookActivity;
 import com.rjxy.librarymos.utils.PrefUtils;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuAdapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static android.content.ContentValues.TAG;
 
@@ -65,6 +69,23 @@ public class C_all_ManagerAdapter extends SwipeMenuAdapter<C_all_ManagerAdapter.
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("book_isbn", mList.get(position).isbn);
                 Log.i(TAG, "传输过去" + mList.get(position).isbn);
+                String username  = PrefUtils.getString(mContext, PrefUtils.NUMBER, "");
+                String isbn = mList.get(position).isbn;
+                String bookname = mList.get(position).bookname;
+                SimpleDateFormat format = new SimpleDateFormat("yyy年mm月dd日   HH:mm:ss ");
+                Date curDate = new Date();//获取当前时间
+                String time = format.format(curDate);
+                HistoryBean historyBean = new HistoryBean();
+                historyBean.BookIsbn = isbn;
+                Log.i(TAG, "传输过去" + historyBean.BookIsbn);
+                historyBean.UserName = username;
+                Log.i(TAG, "传输过去" + historyBean.UserName);
+                historyBean.Time = time;
+                Log.i(TAG, "传输过去" + historyBean.Time);
+
+                if (HistoryDatabaseDao.checkHistory(mContext,historyBean)) {
+                    HistoryDatabaseDao.updateHistory(mContext,historyBean.BookIsbn,historyBean.Time);
+                }else HistoryDatabaseDao.addHistory(mContext, historyBean);
                 mContext.startActivity(intent);
             }
         });

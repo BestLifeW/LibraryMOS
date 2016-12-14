@@ -18,6 +18,7 @@ import com.rjxy.librarymos.R;
 import com.rjxy.librarymos.bean.UserBean;
 import com.rjxy.librarymos.dao.UserDatabaseDao;
 import com.rjxy.librarymos.ui.activity.AccountManager;
+import com.rjxy.librarymos.ui.activity.HistoryActivity;
 import com.rjxy.librarymos.ui.activity.LoginActivity;
 import com.rjxy.librarymos.ui.activity.SettingActivity;
 import com.rjxy.librarymos.utils.PrefUtils;
@@ -189,6 +190,9 @@ public class AboutMeFragment extends Fragment implements View.OnLongClickListene
     * 进入历史纪录
     * */
     private void enterHistory() {
+        Intent intent = new Intent(getActivity(), HistoryActivity.class);
+        intent.putExtra("number", number);
+        startActivity(intent);
         Snackbar.make(getView(), "进入历史纪录", Snackbar.LENGTH_LONG).show();
     }
 

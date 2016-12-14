@@ -8,12 +8,17 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.view.View;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by lovec on 2016/9/19.
@@ -104,5 +109,32 @@ public class PrefUtils {
         }
         return mEdit1.commit();
 
+    }
+
+    //存储浏览记录
+    public static void setToSharedPreference(Context context,String username, String isbn,String bookname,String time){
+        SharedPreferences sp = context.getSharedPreferences("config",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        HashSet<String> set = new HashSet<>();
+        set.add(isbn);
+        set.add(bookname);
+        set.add(time);
+        editor.putStringSet(username,set);
+
+        editor.commit();
+    }
+
+    //获取浏览记录
+    public static HashSet<String> getFormSharedPreference(Context context,String username){
+        SharedPreferences sp = context.getSharedPreferences("config",Context.MODE_PRIVATE);
+        HashSet<String> set = (HashSet<String>) sp.getStringSet(username,null);
+        return set;
+    }
+    //获取当前时间
+    public static String getTime(){
+        SimpleDateFormat format = new SimpleDateFormat("yyy年mm月dd日   HH:mm:ss ");
+        Date curDate = new Date();//获取当前时间
+        String time = format.format(curDate);
+        return  time;
     }
 }

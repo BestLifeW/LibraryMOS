@@ -112,8 +112,9 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
                     Date date = new Date();
                     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                     String currentTime = format.format(date);
+                    String  approve = "未批准";
 
-                    boolean b = ReserveDatabassDao.setReserveInfo(getApplicationContext(), usernumber, book_isbn, currentTime, tv_reserve_time, reserve_number);
+                    boolean b = ReserveDatabassDao.setReserveInfo(getApplicationContext(), usernumber, book_isbn, currentTime, tv_reserve_time, reserve_number,approve);
 
                     if (b) {
                         int reserve = Integer.parseInt(reserve_number);

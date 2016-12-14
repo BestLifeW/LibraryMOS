@@ -27,6 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String BOOKINFO = "book_info";
     public static final String ADMININFO = "admin_info";
     public static final String RESERVEINFO = "reserve_info";
+    public static final String HISTORYINFO = "history_info";
     private static final String TAG = "DatabaseHelper";
     private Context context;
 
@@ -48,7 +49,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table " + USERINFO + "( _id integer primary key AUTOINCREMENT,number varchar(30) ,password varchar(30),name varchar(30))");
         db.execSQL("create table " + ADMININFO + "( number varchar(30) primary key,password varchar(30))");
         db.execSQL("create table " + BOOKINFO + "( bookname varchar(30),number integer(10),isbn varchar(10) primary key,author varchar(30),press varchar(30),pressyear varchar(30),category varchar(30),summary varchar(30),photo blob)");
-        db.execSQL("create table " + RESERVEINFO + "( _id integer primary key AUTOINCREMENT,number varchar(30) REFERENCES user_info(_id),isbn varchar(10) REFERENCES book_info(isbn),reservetime varchar(30),submitime varchar(30),quantity varchar(30)) ");
+        db.execSQL("create table " + RESERVEINFO + "( _id integer primary key AUTOINCREMENT,number varchar(30) REFERENCES user_info(_id),isbn varchar(10) REFERENCES book_info(isbn),reservetime varchar(30),submitime varchar(30),quantity varchar(30),approve varchar(30))");
+        db.execSQL("create table " + HISTORYINFO + "( _id integer primary key AUTOINCREMENT,isbn varchar(10) REFERENCES book_info(isbn),username varchar(30),time varchar(30))");
         initAdmin(db);
         initBook(db);
     }

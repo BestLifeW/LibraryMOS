@@ -11,6 +11,7 @@ public class ReserveBean {
     public String SubmitTime;
     public String ReserveTime;
     public String quantity;//数量
+    public String approve;//是否批准
 
     @Override
     public String toString() {
@@ -21,6 +22,7 @@ public class ReserveBean {
                 ", SubmitTime='" + SubmitTime + '\'' +
                 ", ReserveTime='" + ReserveTime + '\'' +
                 ", quantity='" + quantity + '\'' +
+                ", approve='" + approve + '\'' +
                 '}';
     }
 }

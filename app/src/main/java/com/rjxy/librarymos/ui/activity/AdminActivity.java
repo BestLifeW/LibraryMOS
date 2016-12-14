@@ -89,7 +89,7 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
 
     //进入用户订单管理界面
     public void enterUsersOrder() {
-        Intent intent = new Intent(getApplicationContext(), UserOrderManager.class);
+        Intent intent = new Intent(getApplicationContext(), Order.class);
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 

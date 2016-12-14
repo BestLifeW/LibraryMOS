@@ -25,7 +25,7 @@ public class ReserveDatabassDao {
         ArrayList<ReserveBean> reserveList = new ArrayList<>();
         databaseHelper = new DatabaseHelper(context, null);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
-        String sql = "select * from " + DatabaseHelper.RESERVEINFO;
+        String sql = "select * from " + DatabaseHelper.RESERVEINFO+" where approve ='未批准'";
 
         Cursor cursor = db.rawQuery(sql, null);
 
@@ -51,7 +51,7 @@ public class ReserveDatabassDao {
         return reserveList;
     }
 
-    public static boolean setReserveInfo(Context context, String usernumber, String isbn, String SubmitTime, String ReserveTime, String Quantity) {
+    public static boolean setReserveInfo(Context context, String usernumber, String isbn, String SubmitTime, String ReserveTime, String Quantity, String Approve) {
         databaseHelper = new DatabaseHelper(context, null);
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -60,6 +60,7 @@ public class ReserveDatabassDao {
         values.put("reservetime", ReserveTime);
         values.put("submitime", SubmitTime);
         values.put("quantity", Quantity);
+        values.put("approve", Approve);
         long l = db.insert(DatabaseHelper.RESERVEINFO, null, values);
         if (l > 0) {
             return true;
@@ -67,6 +68,13 @@ public class ReserveDatabassDao {
         db.close();
         return false;
 
+    }
+
+    public static  void updateReserveApprove(Context context,String approve,String usernumer,String isbn){
+        databaseHelper = new DatabaseHelper(context,null);
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        String sql = "update " + DatabaseHelper.BOOKINFO + " set approve=" +  "\"" + approve + "\"" + " where number=" + "\"" + usernumer + "\"" + "and isbn="+"\""+isbn+"\"";
+        db.execSQL(sql);
     }
 
     public static void updateReserveQuantity(Context context, int quantity, String isbn) {
@@ -89,7 +97,7 @@ public class ReserveDatabassDao {
                 reserveBean.UserNumber = cursor.getString(cursor.getColumnIndex("number"));
                 reserveBean.SubmitTime = cursor.getString(cursor.getColumnIndex("submitime"));
                 reserveBean.ReserveTime = cursor.getString(cursor.getColumnIndex("reservetime"));
-
+                reserveBean.approve = cursor.getString(cursor.getColumnIndex("approve"));
                 list.add(reserveBean);
             } while (cursor.moveToNext());
 
@@ -112,7 +120,7 @@ public class ReserveDatabassDao {
                 reserveBean.UserNumber = cursor.getString(cursor.getColumnIndex("number"));
                 reserveBean.SubmitTime = cursor.getString(cursor.getColumnIndex("submitime"));
                 reserveBean.ReserveTime = cursor.getString(cursor.getColumnIndex("reservetime"));
-
+                reserveBean.approve = cursor.getString(cursor.getColumnIndex("approve"));
                 list.add(reserveBean);
             } while (cursor.moveToNext());
 
