@@ -69,7 +69,7 @@ public class ResverAdapter extends RecyclerView.Adapter<ResverAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return mlist == null ? 0 : mlist.size();
+        return reserList == null ? 0 : reserList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
