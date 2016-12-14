@@ -19,6 +19,8 @@ import com.rjxy.librarymos.ui.activity.C_only;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.rjxy.librarymos.R.id.ItemText;
+
 
 public class CategoryBookFragment extends Fragment {
 
@@ -76,46 +78,42 @@ public class CategoryBookFragment extends Fragment {
     * */
     private void intEvent() {
         gridView = (GridView) view.findViewById(R.id.GridView);
-
-
         ArrayList<HashMap<String, Object>> meumList = new ArrayList<HashMap<String, Object>>();
 
-
-
             HashMap<String, Object> map1 = new HashMap<String, Object>();
-            map1.put("ItemImage", R.drawable.s4404535);
+            map1.put("ItemImage", R.drawable.cbxs);
             map1.put("ItemText","出版小說");//小说
             meumList.add(map1);
             HashMap<String, Object> map2 = new HashMap<String, Object>();
-            map2.put("ItemImage", R.drawable.s4404535);
+            map2.put("ItemImage", R.drawable.zjmz);
             map2.put("ItemText","传记名著");//历史
             meumList.add(map2);
             HashMap<String, Object> map3 = new HashMap<String, Object>();
-            map3.put("ItemImage", R.drawable.s4404535);
+            map3.put("ItemImage", R.drawable.jkjy);
             map3.put("ItemText","健康教育");//健康
             meumList.add(map3);
             HashMap<String, Object> map4 = new HashMap<String, Object>();
-            map4.put("ItemImage", R.drawable.s4404535);
+            map4.put("ItemImage", R.drawable.rwsk);
             map4.put("ItemText","人文社科");//科普
             meumList.add(map4);
             HashMap<String, Object> map5 = new HashMap<String, Object>();
-            map5.put("ItemImage", R.drawable.s4404535);
+            map5.put("ItemImage", R.drawable.jdsw);
             map5.put("ItemText","经典散文");//散文
             meumList.add(map5);
             HashMap<String, Object> map6 = new HashMap<String, Object>();
-            map6.put("ItemImage", R.drawable.s4404535);
+            map6.put("ItemImage", R.drawable.mswh);
             map6.put("ItemText","美食文化");//美食
             meumList.add(map6);
             HashMap<String, Object> map7 = new HashMap<String, Object>();
-            map7.put("ItemImage", R.drawable.s4404535);
+            map7.put("ItemImage", R.drawable.jjgl);
             map7.put("ItemText","经济管理");//经济
             meumList.add(map7);
             HashMap<String, Object> map8 = new HashMap<String, Object>();
-            map8.put("ItemImage", R.drawable.s4404535);
+            map8.put("ItemImage", R.drawable.cglz);
             map8.put("ItemText","成功励志");//成功励志
             meumList.add(map8);
             HashMap<String, Object> map9 = new HashMap<String, Object>();
-            map9.put("ItemImage", R.drawable.s4404535);
+            map9.put("ItemImage", R.drawable.zzjs);
             map9.put("ItemText","政治军事");//政治军事
             meumList.add(map9);
 
@@ -124,7 +122,7 @@ public class CategoryBookFragment extends Fragment {
                 meumList, //数据源
                 R.layout.meunitem, //xml实现
                 new String[]{"ItemImage", "ItemText"}, //对应map的Key
-                new int[]{R.id.ItemImage, R.id.ItemText});  //对应R的Id
+                new int[]{R.id.ItemImage, ItemText});  //对应R的Id
 
 //添加Item到网格中
 
