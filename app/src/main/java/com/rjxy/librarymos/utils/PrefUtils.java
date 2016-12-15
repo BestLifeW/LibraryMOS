@@ -6,9 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.view.View;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -18,7 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by lovec on 2016/9/19.
@@ -70,8 +67,7 @@ public class PrefUtils {
     }
 
     public static Bitmap byteArrayToBmp(byte[] photo){
-        Bitmap bitmap = BitmapFactory.decodeByteArray(photo, 0, photo.length, null);
-        return bitmap;
+        return BitmapFactory.decodeByteArray(photo, 0, photo.length, null);
     }
 
     //打开相册
@@ -95,7 +91,10 @@ public class PrefUtils {
         }
         return bitmap;
     }
-
+    // Bitmap转换uri的方法
+    /*public static Uri BitmapTOUri(){
+        Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null,null));
+    }*/
 
     // TODO: 2016/11/1 存取ArrayList的方法  
     public static boolean setStringArry(Context context, ArrayList<String> list) {
@@ -108,7 +107,6 @@ public class PrefUtils {
             mEdit1.putString("Status_" + i, list.get(i));
         }
         return mEdit1.commit();
-
     }
 
     //存储浏览记录

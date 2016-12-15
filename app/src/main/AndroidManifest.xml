@@ -19,7 +19,7 @@
         </activity>
         <activity
             android:name=".ui.activity.HomeActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+            android:theme="@style/NoTitleBar" />
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".ui.activity.AccountManager" />
@@ -27,7 +27,6 @@
         <activity android:name=".ui.activity.AdminActivity" />
         <activity android:name=".ui.activity.UsersManager" />
         <activity android:name=".ui.activity.ModifyAdminPassword" />
-        <activity android:name=".ui.activity.BooksManager" />
         <activity
             android:name=".ui.activity.BookActivity"
             android:theme="@style/NoTitleBar" />
@@ -37,7 +36,9 @@
         <activity android:name=".ui.activity.SettingActivity" />
         <activity android:name=".ui.activity.C_all" />
         <activity android:name=".ui.activity.C_only" />
-        <activity android:name=".ui.activity.Order"></activity>
+        <activity android:name=".ui.activity.Order" />
+        <activity android:name=".ui.activity.AlterBookActivity" />
+        <activity android:name=".ui.activity.BooksManagerActivity"/>
     </application>
 
 </manifest>

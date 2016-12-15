@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rjxy.librarymos.R;
 import com.rjxy.librarymos.bean.BookBean;
@@ -102,7 +103,7 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
             int number = Integer.parseInt(reserve_number);
             Log.i(TAG, "Submit: " + number);
             if (number > bookBean.number) {
-                Snackbar.make(rl_reserve, "抱歉，图书不足，请重新选择", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(rl_reserve, "抱歉，图 书不足，请重新选择", Snackbar.LENGTH_LONG).show();
                 Log.i(TAG, "时间是" + tv_reserve_time);
             } else {
                 if (tv_reserve_time.equals("请选择")) {
@@ -119,7 +120,8 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
                     if (b) {
                         int reserve = Integer.parseInt(reserve_number);
                         ReserveDatabassDao.updateReserveQuantity(getApplicationContext(), reserve, book_isbn);
-                        Snackbar.make(rl_reserve, "恭喜，预定成功！", Snackbar.LENGTH_LONG).show();
+                        Toast.makeText(this, "恭喜，预定成功!", Toast.LENGTH_SHORT).show();
+                        finish();
                         int number1 = bookBean.number;
                         tv_reserve_shownumber.setText(number1 - reserve + "本");
                     } else {

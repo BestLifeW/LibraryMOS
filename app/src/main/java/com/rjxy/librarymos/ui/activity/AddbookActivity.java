@@ -3,15 +3,21 @@ package com.rjxy.librarymos.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.rjxy.librarymos.R;
+import com.rjxy.librarymos.bean.BookBean;
+import com.rjxy.librarymos.dao.BookDatabaseDao;
+import com.rjxy.librarymos.utils.PrefUtils;
 
 public class AddbookActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -28,6 +34,11 @@ public class AddbookActivity extends AppCompatActivity implements View.OnClickLi
     private Button mBtn_addPic;
     private ImageView mIv_showPPic;
     private Button mBtn_sumbit;
+    private Uri uri;
+    private Bitmap bitmap;
+    private static final String TAG = "图片";
+    private String classify;
+    private EditText mEt_des;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +50,6 @@ public class AddbookActivity extends AppCompatActivity implements View.OnClickLi
 
     private void init() {
         initView();
-
     }
 
     private void initView() {
@@ -53,34 +63,27 @@ public class AddbookActivity extends AppCompatActivity implements View.OnClickLi
         mBtn_addPic = (Button) findViewById(R.id.btn_addPic);
         mIv_showPPic = (ImageView) findViewById(R.id.iv_showPPic);
         mBtn_sumbit = (Button) findViewById(R.id.btn_sumbit);
+        mEt_des = (EditText) findViewById(R.id.et_desc);
         mBtn_addPic.setOnClickListener(this);
         mBtn_sumbit.setOnClickListener(this);
     }
 
     private void ChoosePic() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);//ACTION_OPEN_DOCUMENT
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("image/jpeg");
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-            startActivityForResult(intent, SELECT_PIC_KITKAT);
-        } else {
-            startActivityForResult(intent, SELECT_PIC);
-        }
+        PrefUtils.getImageFromAlbum(AddbookActivity.this);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_PIC) {
-            if (data != null) {
-                Bitmap bitmap = data.getParcelableExtra("data");
-            }
-        }
+        uri =  data.getData();
+        Log.i(TAG, "onActivityResult: "+uri);
+        bitmap = PrefUtils.getBitmap(uri,AddbookActivity.this);
+        mIv_showPPic.setImageBitmap(bitmap);
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_addPic:
                 ChoosePic();
                 break;
@@ -104,9 +107,26 @@ public class AddbookActivity extends AppCompatActivity implements View.OnClickLi
         String isbn = mEt_isbn.getText().toString().trim();
         String author = mEt_author.getText().toString().trim();
         String publicname = mEt_public.getText().toString().trim();
-        String count = mEt_count.getText().toString().trim();
-        int classify = mEt_classify.getSelectedItemPosition();
+        String desc = mEt_des.getText().toString().trim();
+        int count = Integer.parseInt(mEt_count.getText().toString().trim());
+        classify = mEt_classify.getSelectedItem().toString();
 
+            BookBean bookBean = new BookBean();
+        bookBean.author = author;
+        bookBean.bookname = bookname;
+        bookBean.isbn = isbn;
+        bookBean.press = publicname;
+        bookBean.number = count;
+        bookBean.category = classify;
+        bookBean.sunmmary = desc;
+        boolean b = BookDatabaseDao.AddBookInfo(bookBean, getApplicationContext(), bitmap);
+        if (b) {
+            Toast.makeText(context, "添加成功", Toast.LENGTH_SHORT).show();
+            finish();
+        }
 
     }
+
+
+
 }

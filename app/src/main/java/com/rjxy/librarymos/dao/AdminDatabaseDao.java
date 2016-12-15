@@ -20,7 +20,6 @@ public class AdminDatabaseDao {
         databaseHelper = new DatabaseHelper(context, null);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
         AdminBean adminBean = new AdminBean();
-        //sqllite自带的方法
         Cursor cursor = db.query(databaseHelper.ADMININFO, null, "number=?", new String[]{number}, null, null, null, null);
         if (cursor.moveToFirst()) {
             Log.i(TAG, "getAdminiInfo: 准备查询");

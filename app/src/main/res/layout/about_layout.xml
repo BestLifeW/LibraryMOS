@@ -14,7 +14,6 @@
 
     <TextView
         android:text="版本:1.0.0"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"

@@ -30,4 +30,5 @@ dependencies {
     compile 'cn.qqtheme.framework:WheelPicker:latest.release'
     compile 'com.yanzhenjie:recyclerview-swipe:1.0.2'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.lapism:searchview:4.0'
 }

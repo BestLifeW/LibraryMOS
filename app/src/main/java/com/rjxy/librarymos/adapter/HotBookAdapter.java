@@ -25,7 +25,6 @@ import com.rjxy.librarymos.utils.PrefUtils;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Set;
 
 import static android.content.ContentValues.TAG;
 
@@ -56,10 +55,11 @@ public class HotBookAdapter extends RecyclerView.Adapter<HotBookAdapter.MyViewHo
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
         byte[] photo=mList.get(position).photo;
-        Log.i("图片：","photo："+photo);
+        //Log.i("图片：","photo："+photo);
         Bitmap bitmap = PrefUtils.byteArrayToBmp(photo);
-        Log.i("图片：","bitmap："+bitmap);
+        //Log.i("图片：","bitmap："+bitmap);
         holder.rlv_item_img.setImageBitmap(bitmap);
+        //Picasso.with(context).load(bitmap).into(holder.rlv_item_img);
         holder.rlv_item_title.setText(mList.get(position).bookname);
         holder.news_desc.setText(mList.get(position).sunmmary);
         holder.card_view.setOnClickListener(new View.OnClickListener() {

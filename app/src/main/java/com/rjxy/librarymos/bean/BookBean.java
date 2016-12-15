@@ -1,10 +1,12 @@
 package com.rjxy.librarymos.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by llt on 2016/10/19.
  */
 
-public class BookBean {
+public class BookBean implements Serializable{
     public int id;
     public String bookname;
     public int number;

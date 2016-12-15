@@ -25,7 +25,7 @@ public class ReserveDatabassDao {
         ArrayList<ReserveBean> reserveList = new ArrayList<>();
         databaseHelper = new DatabaseHelper(context, null);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
-        String sql = "select * from " + DatabaseHelper.RESERVEINFO+" where approve ='未批准'";
+        String sql = "select * from " + DatabaseHelper.RESERVEINFO + " where approve ='未批准'";
 
         Cursor cursor = db.rawQuery(sql, null);
 
@@ -70,11 +70,25 @@ public class ReserveDatabassDao {
 
     }
 
-    public static  void updateReserveApprove(Context context,String approve,String usernumer,String isbn){
-        databaseHelper = new DatabaseHelper(context,null);
+    /*public static Boolean updateReserveApprove(Context context, String approve, String usernumer, String isbn) {
+        databaseHelper = new DatabaseHelper(context, null);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
-        String sql = "update " + DatabaseHelper.BOOKINFO + " set approve=" +  "\"" + approve + "\"" + " where number=" + "\"" + usernumer + "\"" + "and isbn="+"\""+isbn+"\"";
-        db.execSQL(sql);
+        try {
+            String sql = "update " + DatabaseHelper.BOOKINFO + " set approve=" + "\"" + approve + "\"" + " where number=" + "\"" + usernumer + "\"" + "and isbn=" + "\"" + isbn + "\"";
+            db.execSQL(sql);
+            return true;
+        } catch (Exception ignored) {
+        }
+        return false;
+    }*/
+
+    public static Boolean updateReserveApprove(Context context, String approve, String usernumber, String isbn) {
+        databaseHelper = new DatabaseHelper(context, null);
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("approve", approve);
+        int update = database.update(DatabaseHelper.RESERVEINFO, values, "number=? and isbn=?", new String[]{usernumber, isbn});
+        return update >= 1;
     }
 
     public static void updateReserveQuantity(Context context, int quantity, String isbn) {
@@ -92,10 +106,9 @@ public class ReserveDatabassDao {
         String sql = "select * from " + DatabaseHelper.RESERVEINFO + " where number = ?";
         Cursor cursor = db.rawQuery(sql, new String[]{usernumber});
         if (cursor.moveToFirst()) {
-
             do {
                 ReserveBean reserveBean = new ReserveBean();
-                reserveBean.BookIsbn = cursor.getString(cursor.getColumnIndex("isbn"));
+                reserveBean.BookIsbn =cursor.getString(cursor.getColumnIndex("isbn"));
                 reserveBean.UserNumber = cursor.getString(cursor.getColumnIndex("number"));
                 reserveBean.SubmitTime = cursor.getString(cursor.getColumnIndex("submitime"));
                 reserveBean.quantity = cursor.getString(cursor.getColumnIndex("quantity"));
@@ -116,7 +129,7 @@ public class ReserveDatabassDao {
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
         ArrayList<ReserveBean> list = new ArrayList<>();
         String sql = "select * from " + DatabaseHelper.RESERVEINFO;
-        Cursor cursor = db.rawQuery(sql,new String[]{});
+        Cursor cursor = db.rawQuery(sql, new String[]{});
         if (cursor.moveToFirst()) {
             ReserveBean reserveBean = new ReserveBean();
             do {
@@ -126,14 +139,18 @@ public class ReserveDatabassDao {
                 reserveBean.approve = cursor.getString(cursor.getColumnIndex("approve"));
                 list.add(reserveBean);
             } while (cursor.moveToNext());
-
         }
         cursor.close();
         db.close();
-
         return list;
     }
 
+    public static Boolean delReserveByISBNAnd(String isbn, String usernumber, Context context) {
+        databaseHelper = new DatabaseHelper(context, null);
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        int delete = database.delete(DatabaseHelper.RESERVEINFO, "number=? and isbn=? ", new String[]{usernumber, isbn});
+        return delete >= 1;
+    }
     //查询用户借阅数
     public static int getUserReserveQuantity(Context context,String usernumber){
         databaseHelper = new DatabaseHelper(context,null);

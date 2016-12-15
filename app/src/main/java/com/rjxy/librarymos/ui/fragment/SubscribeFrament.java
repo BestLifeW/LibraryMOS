@@ -22,20 +22,24 @@ import com.rjxy.librarymos.bean.ReserveBean;
 import com.rjxy.librarymos.dao.BookDatabaseDao;
 import com.rjxy.librarymos.dao.ReserveDatabassDao;
 import com.rjxy.librarymos.utils.PrefUtils;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;
 
 /**
  * Created by lovec on 2016/9/22.
+ * 订阅模块
  */
 public class SubscribeFrament extends Fragment {
 
     private String userNumber;
     private View view;
-    private RecyclerView rlv_reserve;
-    private ArrayList<BookBean> bookList;
+    private SwipeMenuRecyclerView rlv_reserve;
+    private ArrayList<BookBean> resverBooklist;
     private SwipeRefreshLayout srl_reserve;
     private ArrayList<ReserveBean> reserveinfo;
+    private ResverAdapter resverAdapter;
+    private static final String TAG = "SubscribeFrament";
 
     @Nullable
     @Override
@@ -57,31 +61,63 @@ public class SubscribeFrament extends Fragment {
     * 初始化View
     * */
     private void initView() {
-        rlv_reserve = (RecyclerView) view.findViewById(R.id.rlv_reserve);
+        rlv_reserve = (SwipeMenuRecyclerView) view.findViewById(R.id.rlv_reserve);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rlv_reserve.setLayoutManager(layoutManager);
+        //rlv_reserve.setItemViewSwipeEnabled(true);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
         SpacesItemDecoration decoration = new SpacesItemDecoration(20);
         rlv_reserve.addItemDecoration(decoration);
-        rlv_reserve.setAdapter(new ResverAdapter(getContext(), reserveinfo));
+        resverAdapter = new ResverAdapter(getContext(),reserveinfo,resverBooklist);
+        rlv_reserve.setAdapter(resverAdapter);
         srl_reserve = (SwipeRefreshLayout) view.findViewById(R.id.srl_reserve);
-        
+
         srl_reserve.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
             @Override
             public void onRefresh() {
                 new Handler().postDelayed(new Runnable() {
-
                     @Override
                     public void run() {
-                        bookList = BookDatabaseDao.getByResverISBN(getContext(), userNumber);
-                        //rlv_reserve.setAdapter(new ResverAdapter(getContext(), bookList, reserveinfo));
+                        resverBooklist = BookDatabaseDao.getByResverISBN(getContext(), userNumber);
+                        rlv_reserve.setAdapter(new ResverAdapter(getContext(),reserveinfo, resverBooklist));
                         rlv_reserve.refreshDrawableState();
                         srl_reserve.setRefreshing(false);
                     }
                 }, 2000);
             }
         });
+        /*rlv_reserve.setOnItemMoveListener(new OnItemMoveListener() {
+            @Override
+            public boolean onItemMove(int fromPosition, int toPosition) {
+                return true;
+            }
+            @Override
+            public void onItemDismiss(int position) {
+                resverAdapter.notifyItemRemoved(position);
+                int number = Integer.parseInt(reserveinfo.get(position).quantity);  //借的数量
+                Log.i(TAG, "onItemDismiss: " + reserveinfo.get(position).quantity);
+                int number1 = resverBooklist.get(position).number;//剩余的数量
+                int i = number + number1; //退还，然后一共多少本
+                Log.i(TAG, "onItemDismiss: " + resverBooklist.get(position).number);
+                Boolean aBoolean = ReserveDatabassDao.delReserveByISBNAnd(resverBooklist.get(position).isbn, userNumber, getContext());
+                if (aBoolean) {
+                    Toast.makeText(getContext(), "删除成功", Toast.LENGTH_SHORT).show();
+                    boolean b = BookDatabaseDao.updateBookNumber(i, resverBooklist.get(position).isbn, getContext());
+                    if (b) {
+                        Log.i(TAG, "删除成功" + "成功返还");
+                        //rlv_reserve.setAdapter(new ResverAdapter(getContext(), resverBooklist, reserveinfo));
+
+                        //rlv_reserve.refreshDrawableState();
+                        //resverAdapter.notifyDataSetChanged();
+                    } else {
+                        Log.i(TAG, "删除失败");
+                    }
+                } else {
+                    Toast.makeText(getContext(), "删除失败", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });*/
     }
 
     private void init() {
@@ -90,7 +126,7 @@ public class SubscribeFrament extends Fragment {
 
     private void initData() {
         userNumber = PrefUtils.getString(getActivity(), PrefUtils.NUMBER, "");
-        bookList = BookDatabaseDao.getByResverISBN(getContext(), userNumber);
+        resverBooklist = BookDatabaseDao.getByResverISBN(getContext(), userNumber);
         reserveinfo = ReserveDatabassDao.getReserveinfo(getContext(), userNumber);
     }
 
@@ -105,7 +141,7 @@ public class SubscribeFrament extends Fragment {
 
         private int space;
 
-        public SpacesItemDecoration(int space) {
+        SpacesItemDecoration(int space) {
             this.space = space;
         }
 

@@ -25,8 +25,6 @@ import java.util.ArrayList;
 public class HotBookFragment extends Fragment {
 
     private View view;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
     //private int[] imagesID = {R.drawable.s1319265, R.drawable.s1913020, R.drawable.s1934734, R.drawable.s2660498, R.drawable.s3297116};
     private ArrayList<BookBean> bookInfo;
 
@@ -56,9 +54,9 @@ public class HotBookFragment extends Fragment {
 
     private void initView() {
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.rlv_content);
+        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.rlv_content);
 
-        mLayoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
 
         mRecyclerView.setAdapter(new HotBookAdapter(getActivity(), bookInfo));
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -83,7 +81,7 @@ public class HotBookFragment extends Fragment {
 
         private int space;
 
-        public SpacesItemDecoration(int space) {
+        SpacesItemDecoration(int space) {
             this.space = space;
         }
 

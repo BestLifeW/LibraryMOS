@@ -81,10 +81,9 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
 
     //进入图书管理界面
     public void enterBooksManager() {
-        Intent intent = new Intent(getApplicationContext(), BooksManager.class);
+        Intent intent = new Intent(getApplicationContext(), BooksManagerActivity.class);
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-
     }
 
     //进入用户订单管理界面

@@ -14,7 +14,6 @@ import com.rjxy.librarymos.utils.PrefUtils;
 import java.util.ArrayList;
 
 
-
 /**
  * Created by llt on 2016/10/19.
  */
@@ -23,15 +22,16 @@ public class BookDatabaseDao {
     private static DatabaseHelper databaseHelper;
     private static final String TAG = "BookDatabaseDao";
 
+
     //查询所有图书信息
     public static ArrayList<BookBean> getBookInfo(Context context) {
         ArrayList<BookBean> booklist = new ArrayList<>();
         databaseHelper = new DatabaseHelper(context, null);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
-        CategoryBookFragment categoryBookFragment=new CategoryBookFragment();
+        CategoryBookFragment categoryBookFragment = new CategoryBookFragment();
 
-        String sql = "select * from " + DatabaseHelper.BOOKINFO +" where category like '%"+categoryBookFragment.conly+"%'";
-        categoryBookFragment.conly="";
+        String sql = "select * from " + DatabaseHelper.BOOKINFO + " where category like '%" + categoryBookFragment.conly + "%'";
+        categoryBookFragment.conly = "";
         Cursor cursor = db.rawQuery(sql, null);
 
         if (cursor.moveToFirst()) {
@@ -77,13 +77,10 @@ public class BookDatabaseDao {
         values.put("press", book.press);
         values.put("pressyear", book.pressyear);
         values.put("category", book.category);
-        values.put("sunmmary", book.sunmmary);
+        values.put("summary", book.sunmmary);
         values.put("photo", book.photo);
         long insert = db.insert(DatabaseHelper.BOOKINFO, null, values);
-        if (insert > 0) {
-            return true;
-        }
-        return false;
+        return insert > 0;
     }
 
     public static BookBean getBookInfoByISBN(Context context, String id) {
@@ -157,4 +154,39 @@ public class BookDatabaseDao {
         db.close();
         return bookList;//.
     }
+
+    //删除 DELETE FROM Person WHERE LastName = 'Wilson'
+    public static boolean delBookByISBN(String isbn, Context context) {
+        databaseHelper = new DatabaseHelper(context, null);
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        int isbn1 = db.delete(DatabaseHelper.BOOKINFO, "isbn=?", new String[]{isbn});
+        return isbn1 > 0;
+    }
+
+    public static boolean updateBookinfo(Context context, String isbn, BookBean book) {
+        databaseHelper = new DatabaseHelper(context, null);
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("bookname", book.bookname);
+        values.put("number", book.number);
+        values.put("isbn", book.isbn);
+        values.put("author", book.author);
+        values.put("press", book.press);
+        values.put("pressyear", book.pressyear);
+        values.put("category", book.category);
+        values.put("summary", book.sunmmary);
+        values.put("photo", book.photo);
+        // TODO: 2016/12/12  明天完成这个
+        int update = database.update(DatabaseHelper.BOOKINFO, values, "isbn=?", new String[]{isbn});
+        return update >= 1;
+    }
+    public static boolean updateBookNumber(int number,String isbn,Context context){
+        databaseHelper = new DatabaseHelper(context, null);
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("number",number);
+        int update = database.update(DatabaseHelper.BOOKINFO, values, "isbn=?", new String[]{isbn});
+        return update>=1;
+    }
+
 }
