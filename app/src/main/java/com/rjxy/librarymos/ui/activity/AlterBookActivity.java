@@ -1,5 +1,6 @@
 package com.rjxy.librarymos.ui.activity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatCheckBox;
@@ -13,8 +14,7 @@ import android.widget.Toast;
 import com.rjxy.librarymos.R;
 import com.rjxy.librarymos.bean.BookBean;
 import com.rjxy.librarymos.dao.BookDatabaseDao;
-
-import static com.rjxy.librarymos.R.id.et_bookname;
+import com.rjxy.librarymos.utils.PrefUtils;
 
 public class AlterBookActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -49,7 +49,7 @@ public class AlterBookActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void initView() {
-        mEt_bookname = (EditText) findViewById(et_bookname);
+        mEt_bookname = (EditText) findViewById(R.id.et_bookname);
         mEt_isbn = (EditText) findViewById(R.id.et_isbn);
         mEt_author = (EditText) findViewById(R.id.et_author);
         mEt_public = (EditText) findViewById(R.id.et_public);
@@ -71,6 +71,9 @@ public class AlterBookActivity extends AppCompatActivity implements View.OnClick
             mEt_public.setText(bookInfo.press);
             mEt_des.setText(bookInfo.sunmmary);
             mEt_count.setText(bookInfo.number+"");
+            byte[] photo = bookInfo.photo;
+            Bitmap bitmap = PrefUtils.byteArrayToBmp(photo);
+            mIv_showPPic.setImageBitmap(bitmap);
         }
 
     }
