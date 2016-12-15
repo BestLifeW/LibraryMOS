@@ -36,15 +36,7 @@
             android:text="爱德华·巴纳德的堕落"
             android:textColor="#3c3c3c" />
 
-        <TextView
-            android:id="@+id/tv_historyitem_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="浏览时间:2016/10/18"
-            android:textSize="11sp"
-            android:layout_alignBottom="@+id/iv_historyitem_im"
-            android:layout_alignLeft="@+id/tv_historyitem_title"
-            android:layout_alignStart="@+id/tv_historyitem_title" />
+
 
         <TextView
             android:id="@+id/tv_historyitem_dec"

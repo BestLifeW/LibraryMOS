@@ -8,19 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rjxy.librarymos.R;
 import com.rjxy.librarymos.bean.BookBean;
 import com.rjxy.librarymos.bean.HistoryBean;
 import com.rjxy.librarymos.dao.BookDatabaseDao;
-import com.rjxy.librarymos.ui.activity.HistoryActivity;
 import com.rjxy.librarymos.utils.PrefUtils;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 
 /**
  * Created by llt on 2016/12/3.
@@ -56,7 +52,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
         holder.iv_historyitem_im.setImageBitmap(bitmap);
         holder.tv_historyitem_title.setText(bookBean.bookname);
         holder.tv_historyitem_dec.setText(bookBean.sunmmary);
-        holder.tv_historyitem_time.setText("浏览时间:  "+historyBeans.get(position).Time);
     }
 
     @Override
@@ -75,7 +70,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
             super(itemView);
             iv_historyitem_im = (ImageView) itemView.findViewById(R.id.iv_historyitem_im);
             tv_historyitem_title = (TextView) itemView.findViewById(R.id.tv_historyitem_title);
-            tv_historyitem_time = (TextView) itemView.findViewById(R.id.tv_historyitem_time);
             tv_historyitem_dec = (TextView) itemView.findViewById(R.id.tv_historyitem_dec);
         }
     }
